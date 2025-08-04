@@ -19,8 +19,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-
-
 /* Get the wallet key associated to the public key of
  * the agent and the encryption key for the local db
  * that stores your agent's messages */
@@ -58,8 +56,6 @@ async function main() {
   /* Sync the conversations from the network to update the local db */
   console.log("✓ Syncing conversations...");
   await client.conversations.sync();
-
-
 
   // Stream all messages for wellness responses
   const messageStream = async () => {
@@ -327,8 +323,8 @@ Guide users to discover events in their area!`;
             const senderAddress = inboxState[0]?.identifiers[0]?.identifier;
             
             if (senderAddress) {
-              // Create or get DM conversation
-              const dmConversation = await client.conversations.newConversation(senderAddress);
+              // Create or get DM conversation using the correct method
+              const dmConversation = await client.conversations.newDm(senderAddress);
               await dmConversation.send(`Hi! Here are the details you requested:\n\n${getCombinedResponse()}`);
               console.log("📱 Sent follow-up DM with details");
             }
