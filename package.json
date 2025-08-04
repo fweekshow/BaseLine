@@ -1,0 +1,17 @@
+{
+  "name": "baseline",
+  "version": "1.0.0",
+  "description": "A new project to build something amazing",
+  "scripts": {
+    "dev": "cd planbase && npx tsx --env-file ../.env index.ts",
+    "start": "cd planbase && npx tsx --env-file ../.env index.ts",
+    "planbase": "cd planbase && npx tsx --env-file ../.env index.ts",
+    "install:planbase": "cd planbase && npm install"
+  },
+  "devDependencies": {
+    "tsx": "*"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+} 

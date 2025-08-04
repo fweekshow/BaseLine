@@ -11,9 +11,11 @@
     "start": "tsx index.ts"
   },
   "dependencies": {
+    "@scure/bip39": "^1.6.0",
     "@xmtp/node-sdk": "*",
     "dotenv": "^16.4.5",
-    "openai": "^4.94.0"
+    "openai": "^4.94.0",
+    "viem": "^2.33.2"
   },
   "devDependencies": {
     "tsx": "*",
@@ -22,4 +24,4 @@
   "engines": {
     "node": ">=20"
   }
-} 
+}

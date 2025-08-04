@@ -1,0 +1,102 @@
+[2025-08-04T01:47:44.375Z] 📨 Received: "Hi" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T01:47:50.414Z] 📨 Received: "Change my city" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T01:50:09.377Z] 📨 Received: "Hello" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T01:50:09.379Z] 🔍 Starting to process message
+[2025-08-04T01:50:20.017Z] 📨 Received: "How do I change my city" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T01:50:20.018Z] 🔍 Starting to process message
+[2025-08-04T01:56:10.141Z] 📨 Received: "Anyone have any good ideas for an everything miniapp? 🤔" from 424be8d40adc79a967e6a2a3e0e488ea5844dc790618011dab7da107f2a8bc87
+[2025-08-04T01:56:10.157Z] 🔍 Starting to process message
+[2025-08-04T01:57:20.413Z] 📨 Received: "Change my city" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T01:57:20.415Z] 🔍 Starting to process message
+[2025-08-04T02:00:04.533Z] 📨 Received: "Change my city" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:00:04.535Z] 🔍 Starting to process message
+[2025-08-04T02:04:13.557Z] 📨 Received: "Change my city" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:04:13.558Z] 🔍 Starting to process message
+[2025-08-04T02:05:41.849Z] 📨 Received: "Hi" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:05:41.852Z] 🔍 Starting to process message
+[2025-08-04T02:05:57.460Z] 📨 Received: "I want events in Los Angeles" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:05:57.462Z] 🔍 Starting to process message
+[2025-08-04T02:07:53.656Z] 📨 Received: "Hi" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:07:53.658Z] 🔍 Starting to process message
+[2025-08-04T02:08:01.588Z] 📨 Received: "I want to find events in my city" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:08:01.590Z] 🔍 Starting to process message
+[2025-08-04T02:09:46.734Z] 📨 Received: "Hi" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:09:46.736Z] 🔍 Starting to process message
+[2025-08-04T02:09:53.685Z] 📨 Received: "I want events in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:09:53.686Z] 🔍 Starting to process message
+[2025-08-04T02:10:05.162Z] 📨 Received: "What about SF" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:10:05.163Z] 🔍 Starting to process message
+[2025-08-04T02:12:57.638Z] 📨 Received: "I’ll make sure your evens regardless. 🤝 I’ll see if I can find a tool to share payments like this for us." from a4e5c1231443f131aea1de1514313163208e69b9135ee2a72d25faa47cb24c9d
+[2025-08-04T02:12:57.640Z] 🔍 Starting to process message
+[2025-08-04T02:13:32.179Z] 📨 Received: "Hi" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:13:32.181Z] 🔍 Starting to process message
+[2025-08-04T02:13:41.079Z] 📨 Received: "I am looking for events in my city" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:13:41.080Z] 🔍 Starting to process message
+[2025-08-04T02:14:43.004Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:14:43.006Z] 🔍 Starting to process message
+[2025-08-04T02:15:33.033Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:15:33.037Z] 🔍 Starting to process message
+[2025-08-04T02:15:42.856Z] 📨 Received: "Events in Los Angeles" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:15:42.858Z] 🔍 Starting to process message
+[2025-08-04T02:15:52.065Z] 📨 Received: "Events in Sf" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:15:52.066Z] 🔍 Starting to process message
+[2025-08-04T02:16:22.975Z] 📨 Received: "Can you send me the ticket link to Summit" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:16:22.976Z] 🔍 Starting to process message
+[2025-08-04T02:18:01.768Z] 📨 Received: "You know bankr better than me though" from a4e5c1231443f131aea1de1514313163208e69b9135ee2a72d25faa47cb24c9d
+[2025-08-04T02:18:01.772Z] 🔍 Starting to process message
+[2025-08-04T02:18:53.253Z] 📨 Received: "@Quigs.base.eth 🟦 there’s the mini app idea. Venmo style split payments app" from a4e5c1231443f131aea1de1514313163208e69b9135ee2a72d25faa47cb24c9d
+[2025-08-04T02:18:53.261Z] 🔍 Starting to process message
+[2025-08-04T02:18:58.215Z] 📨 Received: "Holder count is growing 👀" from 658bdaa16ba453a203859cae9367563b1d9216db6756540e1dbad76de25f4403
+[2025-08-04T02:18:58.217Z] 🔍 Starting to process message
+[2025-08-04T02:19:22.281Z] 📨 Received: "Hi" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:19:22.282Z] 🔍 Starting to process message
+[2025-08-04T02:19:28.046Z] 📨 Received: "Events in SF" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:19:28.047Z] 🔍 Starting to process message
+[2025-08-04T02:19:30.630Z] 📨 Received: "Haven’t checked the chart in 15. I had to take a break 😂" from a4e5c1231443f131aea1de1514313163208e69b9135ee2a72d25faa47cb24c9d
+[2025-08-04T02:19:30.631Z] 🔍 Starting to process message
+[2025-08-04T02:19:34.746Z] 📨 Received: "Stressed" from a4e5c1231443f131aea1de1514313163208e69b9135ee2a72d25faa47cb24c9d
+[2025-08-04T02:19:34.747Z] 🔍 Starting to process message
+[2025-08-04T02:19:36.448Z] 📨 Received: "Says 253" from 658bdaa16ba453a203859cae9367563b1d9216db6756540e1dbad76de25f4403
+[2025-08-04T02:19:36.449Z] 🔍 Starting to process message
+[2025-08-04T02:19:46.615Z] 📨 Received: "Looking good" from 658bdaa16ba453a203859cae9367563b1d9216db6756540e1dbad76de25f4403
+[2025-08-04T02:19:46.616Z] 🔍 Starting to process message
+[2025-08-04T02:20:49.867Z] 📨 Received: "Events in SF" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:20:49.869Z] 🔍 Starting to process message
+[2025-08-04T02:20:49.940Z] 📨 Received: "Events in SF" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:20:49.945Z] 🔍 Starting to process message
+[2025-08-04T02:21:10.227Z] 📨 Received: "Hi" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:21:10.231Z] 🔍 Starting to process message
+[2025-08-04T02:21:16.778Z] 📨 Received: "Events in SF" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:21:16.779Z] 🔍 Starting to process message
+[2025-08-04T02:21:48.411Z] 📨 Received: "Yessir I just bought the dip again" from 33d6be965bf004714754bdfae545c3790d472c0c6ab0de1d76a416e8746675a1
+[2025-08-04T02:21:48.413Z] 🔍 Starting to process message
+[2025-08-04T02:21:52.158Z] 📨 Received: "https://dexscreener.com/base/0xc79ed9fde05a9156cf3ac2b780241063e8a39480a046cc30a97d7904d6a696c5" from 33d6be965bf004714754bdfae545c3790d472c0c6ab0de1d76a416e8746675a1
+[2025-08-04T02:21:52.158Z] 🔍 Starting to process message
+[2025-08-04T02:22:15.208Z] 📨 Received: "Hi" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:22:15.210Z] 🔍 Starting to process message
+[2025-08-04T02:22:19.810Z] 📨 Received: "Events in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:22:19.812Z] 🔍 Starting to process message
+[2025-08-04T02:22:21.095Z] 📨 Received: "We out here" from 424be8d40adc79a967e6a2a3e0e488ea5844dc790618011dab7da107f2a8bc87
+[2025-08-04T02:22:21.096Z] 🔍 Starting to process message
+[2025-08-04T02:22:29.696Z] 📨 Received: "Events in SF" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:22:29.698Z] 🔍 Starting to process message
+[2025-08-04T02:24:04.410Z] 📨 Received: "Hello" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:24:04.413Z] 🔍 Starting to process message
+[2025-08-04T02:24:09.522Z] 📨 Received: "Events in SF" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:24:09.523Z] 🔍 Starting to process message
+[2025-08-04T02:24:44.525Z] 📨 Received: "This is one of the most excited I’ve been in a long time. And it comes down to a powerful network and group incentives." from a4e5c1231443f131aea1de1514313163208e69b9135ee2a72d25faa47cb24c9d
+[2025-08-04T02:24:44.528Z] 🔍 Starting to process message
+[2025-08-04T02:24:56.346Z] 📨 Received: "Everyone has a chance to add value" from a4e5c1231443f131aea1de1514313163208e69b9135ee2a72d25faa47cb24c9d
+[2025-08-04T02:24:56.348Z] 🔍 Starting to process message
+[2025-08-04T02:25:45.998Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:25:45.999Z] 🔍 Starting to process message
+[2025-08-04T02:25:58.092Z] 📨 Received: "Events in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:25:58.093Z] 🔍 Starting to process message
+[2025-08-04T02:26:04.846Z] 📨 Received: "Events in SF" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-04T02:26:04.847Z] 🔍 Starting to process message
+[2025-08-04T02:26:15.798Z] 📨 Received: "thanks fam. Neat idea and I’m excited to support" from 375a604850d4e89122f38290e183f9d22270b3854d9b8d24e4d5673bb222f7d1
+[2025-08-04T02:26:15.799Z] 🔍 Starting to process message
+[2025-08-04T02:27:15.237Z] 📨 Received: "Next thing you know Jesse collects 100$ in fees once he does and then this sends to new levels we can’t imagine , the people in this group together is not by accident ;)" from 33d6be965bf004714754bdfae545c3790d472c0c6ab0de1d76a416e8746675a1
+[2025-08-04T02:27:15.245Z] 🔍 Starting to process message
+[2025-08-04T02:28:21.799Z] 📨 Received: "i’m putting everything merch in based apes" from 4f18bf73f618195bbb22d1cbdc64b12bf86792f4e4a2a336e99bf4c3060c894f
+[2025-08-04T02:28:21.801Z] 🔍 Starting to process message
