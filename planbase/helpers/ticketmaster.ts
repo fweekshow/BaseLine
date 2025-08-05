@@ -515,8 +515,41 @@ export class TicketmasterService {
         console.log(`✅ Using AI-parsed end date: ${endDate.toISOString()}`);
       }
 
-      // Use flexible location search for better results
-      events = await this.searchWithFlexibleLocation(searchParams, startDate, endDate);
+      // Strategy 1: Try attraction-based search first (more effective for artist searches)
+      if (searchParams.artist && searchParams.artist !== 'undefined') {
+        console.log(`🔍 Strategy 1: Searching for attraction "${searchParams.artist}"`);
+        const attractionId = await this.searchAttractionByName(searchParams.artist);
+        
+        if (attractionId) {
+          console.log(`✅ Found attraction ID: ${attractionId}`);
+          
+          // Search for events by attraction ID
+          if (searchParams.city && searchParams.city !== 'undefined') {
+            events = await this.searchEventsByAttractionId(attractionId, searchParams.city, 10, startDate.toISOString(), endDate.toISOString());
+            console.log(`✅ Found ${events.length} events by attraction ID in ${searchParams.city}`);
+          }
+          
+          // If no events found in specific city, try statewide for California
+          if (events.length === 0 && searchParams.city && (searchParams.city.toLowerCase().includes('los angeles') || searchParams.city.toLowerCase().includes('la'))) {
+            console.log(`🔍 Trying statewide California search for attraction`);
+            events = await this.searchEventsByAttractionId(attractionId, 'California', 10, startDate.toISOString(), endDate.toISOString());
+            console.log(`✅ Found ${events.length} events by attraction ID statewide`);
+          }
+          
+          // If still no events, try nationwide
+          if (events.length === 0) {
+            console.log(`🔍 Trying nationwide search for attraction`);
+            events = await this.searchEventsByAttractionId(attractionId, '', 10, startDate.toISOString(), endDate.toISOString());
+            console.log(`✅ Found ${events.length} events by attraction ID nationwide`);
+          }
+        }
+      }
+      
+      // Strategy 2: Fallback to flexible location search if attraction search didn't work
+      if (events.length === 0) {
+        console.log(`🔍 Strategy 2: Using flexible location search`);
+        events = await this.searchWithFlexibleLocation(searchParams, startDate, endDate);
+      }
       
       if (events.length === 0) {
         explanation = `No events found for your search. Try adjusting your criteria or checking a different city.`;
@@ -526,14 +559,6 @@ export class TicketmasterService {
         explanation = `Found ${limitedEvents.length} event${limitedEvents.length > 1 ? 's' : ''} matching your search.`;
         events = limitedEvents;
       }
-      
-      return {
-        events,
-        searchParams,
-        explanation
-      };
-      
-
       
       return {
         events,
