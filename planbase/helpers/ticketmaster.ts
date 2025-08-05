@@ -504,33 +504,15 @@ export class TicketmasterService {
       let startDate = currentDate;
       let endDate = searchParams.artist ? sixMonthsFromNow : thirtyDaysFromNow;
       
-      // Use AI-parsed dates if they're valid and in the future
+      // Use AI-parsed dates if provided
       if (searchParams.dateRange?.startDate && searchParams.dateRange.startDate !== 'undefined') {
-        try {
-          const aiStartDate = new Date(searchParams.dateRange.startDate);
-          if (!isNaN(aiStartDate.getTime()) && aiStartDate >= currentDate) {
-            startDate = aiStartDate;
-            console.log(`✅ Using AI-parsed start date: ${aiStartDate.toISOString()}`);
-          } else {
-            console.log(`⚠️ AI start date is invalid or in the past, using current date`);
-          }
-        } catch (error) {
-          console.error('Error parsing AI start date:', error);
-        }
+        startDate = new Date(searchParams.dateRange.startDate);
+        console.log(`✅ Using AI-parsed start date: ${startDate.toISOString()}`);
       }
       
       if (searchParams.dateRange?.endDate && searchParams.dateRange.endDate !== 'undefined') {
-        try {
-          const aiEndDate = new Date(searchParams.dateRange.endDate);
-          if (!isNaN(aiEndDate.getTime()) && aiEndDate >= currentDate) {
-            endDate = aiEndDate;
-            console.log(`✅ Using AI-parsed end date: ${aiEndDate.toISOString()}`);
-          } else {
-            console.log(`⚠️ AI end date is invalid or in the past, using 30 days from now`);
-          }
-        } catch (error) {
-          console.error('Error parsing AI end date:', error);
-        }
+        endDate = new Date(searchParams.dateRange.endDate);
+        console.log(`✅ Using AI-parsed end date: ${endDate.toISOString()}`);
       }
 
       // Use flexible location search for better results
@@ -539,7 +521,10 @@ export class TicketmasterService {
       if (events.length === 0) {
         explanation = `No events found for your search. Try adjusting your criteria or checking a different city.`;
       } else if (!explanation) {
-        explanation = `Found ${events.length} events matching your search.`;
+        // Limit to first 3 events for chat response
+        const limitedEvents = events.slice(0, 3);
+        explanation = `Found ${limitedEvents.length} event${limitedEvents.length > 1 ? 's' : ''} matching your search.`;
+        events = limitedEvents;
       }
       
       return {
@@ -641,7 +626,7 @@ Return ONLY the JSON object, no markdown formatting, no code blocks, no addition
   }
 
   private async searchWithFlexibleLocation(searchParams: any, startDate: Date, endDate: Date): Promise<TicketmasterEvent[]> {
-    const baseUrl = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${this.apiKey}&size=10&startDateTime=${encodeURIComponent(startDate.toISOString().replace(/\.\d{3}Z$/, 'Z'))}&endDateTime=${encodeURIComponent(endDate.toISOString().replace(/\.\d{3}Z$/, 'Z'))}&sort=date,asc&includeTBA=no&includeTBD=no`;
+    const baseUrl = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${this.apiKey}&size=5&startDateTime=${encodeURIComponent(startDate.toISOString().replace(/\.\d{3}Z$/, 'Z'))}&endDateTime=${encodeURIComponent(endDate.toISOString().replace(/\.\d{3}Z$/, 'Z'))}&sort=date,asc&includeTBA=no&includeTBD=no`;
     
     // Strategy 1: Exact city match
     if (searchParams.city && searchParams.city !== 'undefined') {
@@ -649,12 +634,8 @@ Return ONLY the JSON object, no markdown formatting, no code blocks, no addition
       let url = baseUrl + `&city=${encodeURIComponent(searchParams.city)}`;
       
       if (searchParams.artist && searchParams.artist !== 'undefined') {
-        const attractionId = await this.searchAttractionByName(searchParams.artist);
-        if (attractionId) {
-          url += `&attractionId=${attractionId}`;
-        } else {
-          url += `&keyword=${encodeURIComponent(searchParams.artist)}`;
-        }
+        // Use keyword search for better results in flexible location search
+        url += `&keyword=${encodeURIComponent(searchParams.artist)}`;
       }
       
       const events = await this.fetchEvents(url);
@@ -670,18 +651,28 @@ Return ONLY the JSON object, no markdown formatting, no code blocks, no addition
       let url = baseUrl + `&stateCode=CA`;
       
       if (searchParams.artist && searchParams.artist !== 'undefined') {
-        const attractionId = await this.searchAttractionByName(searchParams.artist);
-        if (attractionId) {
-          url += `&attractionId=${attractionId}`;
-        } else {
-          url += `&keyword=${encodeURIComponent(searchParams.artist)}`;
-        }
+        // Use keyword search for better results in flexible location search
+        url += `&keyword=${encodeURIComponent(searchParams.artist)}`;
       }
       
       const events = await this.fetchEvents(url);
       if (events.length > 0) {
-        console.log(`✅ Found ${events.length} events statewide`);
+        console.log(`✅ Found ${events.length} events statewide in California`);
         return events;
+      }
+      
+      // Strategy 2b: Try DMA search for Los Angeles area (DMA 324)
+      console.log(`🔍 Strategy 2b: Searching Los Angeles DMA (324)`);
+      let dmaUrl = baseUrl + `&dmaId=324`;
+      
+      if (searchParams.artist && searchParams.artist !== 'undefined') {
+        dmaUrl += `&keyword=${encodeURIComponent(searchParams.artist)}`;
+      }
+      
+      const dmaEvents = await this.fetchEvents(dmaUrl);
+      if (dmaEvents.length > 0) {
+        console.log(`✅ Found ${dmaEvents.length} events in Los Angeles DMA`);
+        return dmaEvents;
       }
     }
     
@@ -690,12 +681,8 @@ Return ONLY the JSON object, no markdown formatting, no code blocks, no addition
     let url = baseUrl;
     
     if (searchParams.artist && searchParams.artist !== 'undefined') {
-      const attractionId = await this.searchAttractionByName(searchParams.artist);
-      if (attractionId) {
-        url += `&attractionId=${attractionId}`;
-      } else {
-        url += `&keyword=${encodeURIComponent(searchParams.artist)}`;
-      }
+      // Use keyword search for better results in flexible location search
+      url += `&keyword=${encodeURIComponent(searchParams.artist)}`;
     }
     
     const events = await this.fetchEvents(url);
