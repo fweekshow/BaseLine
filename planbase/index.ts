@@ -11,27 +11,10 @@ import { getCombinedResponse } from './data.js';
 import { TicketmasterService, type TicketmasterEvent } from './helpers/ticketmaster.js';
 
 import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import fs from 'fs';
 
-// Load environment from the main project directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Try to load production environment first, fallback to development
-const envPath = path.resolve(__dirname, '../.env.production');
-const devEnvPath = path.resolve(__dirname, '../.env');
-
-if (fs.existsSync(envPath)) {
-  console.log('📋 Loading production environment variables');
-  dotenv.config({ path: envPath });
-} else if (fs.existsSync(devEnvPath)) {
-  console.log('📋 Loading development environment variables');
-  dotenv.config({ path: devEnvPath });
-} else {
-  console.log('⚠️ No environment file found, using system environment variables');
-}
+// Load environment variables
+dotenv.config();
 
 /* Get the wallet key associated to the public key of
  * the agent and the encryption key for the local db
@@ -93,13 +76,24 @@ async function main() {
         console.log(`📨 Raw message received: ${message.content} from ${message.senderInboxId}`);
         console.log(`📨 Message timestamp: ${message.sentAt}`);
         console.log(`📨 Conversation ID: ${message.conversationId}`);
+        console.log(`📨 Content type: ${message.contentType?.typeId}`);
+        console.log(`📨 Sender inbox ID: ${message.senderInboxId}`);
+        console.log(`📨 Client inbox ID: ${client.inboxId}`);
         
       /* Ignore messages from the same agent or non-text messages */
-      if (
-        message.senderInboxId.toLowerCase() === client.inboxId.toLowerCase() ||
-        message.contentType?.typeId !== "text"
-      ) {
-          console.log("⏭️ Skipping message (from self or non-text)");
+      if (message.senderInboxId.toLowerCase() === client.inboxId.toLowerCase()) {
+          console.log("⏭️ Skipping message (from self)");
+        continue;
+      }
+      
+      // Accept text, reaction, and reply content types, but only process if we have content
+      if (message.contentType?.typeId !== "text" && message.contentType?.typeId !== "reaction" && message.contentType?.typeId !== "reply") {
+          console.log("⏭️ Skipping message (not text, reaction, or reply content type)");
+        continue;
+      }
+      
+      if (!message.content) {
+          console.log("⏭️ Skipping message (no content)");
         continue;
       }
 
@@ -133,7 +127,10 @@ async function main() {
       try {
         // Determine if this is a group conversation (following XMTP SDK patterns)
         const isGroup = conversation instanceof Group;
-          console.log(`📝 Conversation type: ${isGroup ? 'Group' : 'DM'}`);
+        console.log(`📝 Conversation type: ${isGroup ? 'Group' : 'DM'}`);
+        console.log(`📝 Conversation ID: ${conversation.id}`);
+        console.log(`📝 Conversation constructor: ${conversation.constructor.name}`);
+        console.log(`📝 Is Group instance: ${conversation instanceof Group}`);
         
         // Get agent's address for mention detection
         const agentAddress = client.accountIdentifier?.identifier;
@@ -157,150 +154,6 @@ async function main() {
           continue;
         }
 
-        // Handle city setting in solo chats
-        if (!isGroup && messageContent.toLowerCase().includes('my city is') || messageContent.toLowerCase().includes('i live in')) {
-          const cityMatch = messageContent.match(/(?:my city is|i live in)\s+([^.!?]+)/i);
-          if (cityMatch) {
-            const city = cityMatch[1].trim();
-            userCities.set(message.senderInboxId, city);
-            await conversation.send(`Got it! I'll remember you're in ${city}. How can I help you today?`);
-            continue;
-          }
-        }
-
-        // Handle city selection with Quick Actions
-        if (!isGroup && (messageContent.toLowerCase().includes('change my city') || 
-                         messageContent.toLowerCase().includes('set my city') ||
-                         messageContent.toLowerCase().includes('where am i'))) {
-          
-                    console.log(`🔍 Checking city condition for: "${messageContent}"`);
-          
-          // Check if user is asking about their current city
-          if (messageContent.toLowerCase().includes('what city') || messageContent.toLowerCase().includes('where am i')) {
-            const currentCity = userCities.get(message.senderInboxId);
-            if (currentCity) {
-              await conversation.send(`You're currently set to: ${currentCity}`);
-            } else {
-              await conversation.send(`You haven't set a city yet. What city are you in?`);
-            }
-            return;
-          }
-          
-          console.log(`✅ City condition matched! Sending Quick Actions.`);
-          
-          
-          
-          // Send user-friendly city selection message
-          console.log("📝 Sending city selection message...");
-          await conversation.send(`What city are you in? 
-
-Choose from these options:
-1. Los Angeles
-2. San Francisco  
-3. New York
-4. Miami
-5. Austin
-6. Other City
-
-Or just type "I live in [your city]" and I'll remember it!`);
-          return; // Exit early to prevent multiple responses
-        }
-
-        // Handle address management - simple text input
-        if (!isGroup && (messageContent.toLowerCase().includes('change my address') || 
-                         messageContent.toLowerCase().includes('update address') || 
-                         messageContent.toLowerCase().includes('my address'))) {
-          
-          const currentAddress = userAddresses.get(message.senderInboxId);
-          if (currentAddress) {
-            await conversation.send(`Your current address is: ${currentAddress}
-
-To change it, just type "My address is [new address]"
-To remove it, type "Remove my address"`);
-          } else {
-            await conversation.send(`You haven't set an address yet. Just type "My address is [your address]" and I'll remember it!`);
-          }
-          return; // Exit early to prevent multiple responses
-        }
-
-        // Handle address input when user is prompted
-        if (!isGroup && pendingAddressRequests.has(message.senderInboxId)) {
-          const address = messageContent.trim();
-          if (address.length > 0) {
-            userAddresses.set(message.senderInboxId, address);
-            pendingAddressRequests.delete(message.senderInboxId);
-            await conversation.send(`Perfect! I've saved your address: ${address}. How can I help you today?`);
-            return;
-          }
-        }
-
-        // Handle "My address is" input
-        if (!isGroup && messageContent.toLowerCase().includes('my address is')) {
-          const addressMatch = messageContent.match(/my address is\s+(.+)/i);
-          if (addressMatch) {
-            const address = addressMatch[1].trim();
-            userAddresses.set(message.senderInboxId, address);
-            await conversation.send(`Perfect! I've saved your address: ${address}. How can I help you today?`);
-            return;
-          }
-        }
-
-        // Handle "Remove my address"
-        if (!isGroup && messageContent.toLowerCase().includes('remove my address')) {
-          userAddresses.delete(message.senderInboxId);
-          await conversation.send(`Your address has been removed.`);
-          return;
-        }
-
-        // Handle city responses (when user types a city name)
-          // Only treat as city response if it's clearly a standalone city mention
-        if (!isGroup && (
-          messageContent.toLowerCase().includes('i live in') ||
-          messageContent.toLowerCase().includes('my city is') ||
-            // Only treat as city response if it's a single word or simple city name
-            (messageContent.toLowerCase().includes('los angeles') && messageContent.toLowerCase().trim().length <= 15 && !messageContent.toLowerCase().includes('events')) ||
-            (messageContent.toLowerCase().includes('san francisco') && messageContent.toLowerCase().trim().length <= 15 && !messageContent.toLowerCase().includes('events')) ||
-            (messageContent.toLowerCase().includes('new york') && messageContent.toLowerCase().trim().length <= 15 && !messageContent.toLowerCase().includes('events')) ||
-            (messageContent.toLowerCase().includes('miami') && messageContent.toLowerCase().trim().length <= 15 && !messageContent.toLowerCase().includes('events')) ||
-            (messageContent.toLowerCase().includes('austin') && messageContent.toLowerCase().trim().length <= 15 && !messageContent.toLowerCase().includes('events'))
-        )) {
-          console.log(`🔍 Checking city response: "${messageContent}"`);
-          
-          let selectedCity = '';
-          
-          // Map city names to standardized names
-          if (messageContent.toLowerCase().includes('los angeles') || messageContent.toLowerCase().includes('la')) {
-            selectedCity = 'Los Angeles';
-          } else if (messageContent.toLowerCase().includes('san francisco') || messageContent.toLowerCase().includes('sf')) {
-            selectedCity = 'San Francisco';
-          } else if (messageContent.toLowerCase().includes('new york') || messageContent.toLowerCase().includes('nyc')) {
-            selectedCity = 'New York';
-          } else if (messageContent.toLowerCase().includes('miami')) {
-            selectedCity = 'Miami';
-          } else if (messageContent.toLowerCase().includes('austin')) {
-            selectedCity = 'Austin';
-          } else if (messageContent.toLowerCase().includes('i live in')) {
-            // Extract city from "I live in [city]"
-            const match = messageContent.match(/i live in\s+(.+)/i);
-            if (match) {
-              selectedCity = match[1].trim();
-            }
-          } else if (messageContent.toLowerCase().includes('my city is')) {
-            // Extract city from "My city is [city]"
-            const match = messageContent.match(/my city is\s+(.+)/i);
-            if (match) {
-              selectedCity = match[1].trim();
-            }
-          }
-          
-          if (selectedCity) {
-            userCities.set(message.senderInboxId, selectedCity);
-            console.log(`✅ City saved: ${selectedCity}`);
-            await conversation.send(`Perfect! I'll remember you're in ${selectedCity}. How can I help you today?`);
-            return;
-          }
-        }
-
         // Get user's city for context
         const userCity = userCities.get(message.senderInboxId) || 'your area';
 
@@ -320,6 +173,14 @@ To remove it, type "Remove my address"`);
           continue;
         }
 
+        // Check for San Francisco events - hardcoded response (FIRST!)
+        if (messageContent.toLowerCase().includes('san francisco') || messageContent.toLowerCase().includes('sf')) {
+          console.log(`🎯 San Francisco event detected - sending Onchain Summit response`);
+          const onchainResponse = `Onchain Summit - Sep 9-10, 2025, San Francisco\n\nCheck out the details: https://onchainsummit.io\n\nThis is the premier blockchain event in SF!`;
+          await conversation.send(onchainResponse);
+          continue;
+        }
+        
         // Use OpenAI for natural responses
         console.log("🤖 Using OpenAI for response...");
         
@@ -363,21 +224,11 @@ To remove it, type "Remove my address"`);
             }
           }
           
-          const systemPrompt = `You are a friendly assistant that helps people find events and concerts. You have access to real event data from Ticketmaster.
+          const systemPrompt = `You are a helpful event finder. Use ONLY the real event data below. Show ALL events provided - don't filter them out. Keep responses VERY short - just Artist, Date, Venue. No ticket links, no extra text, no formatting.
 
-RESPONSE RULES:
-- Use natural, conversational language - no weird formatting or symbols
-- When someone asks about events, use the real event data provided below
-- Handle spelling variations and typos naturally (e.g., "Billie Eillish" → "Billie Eilish", "Los Angelas" → "Los Angeles")
-- If no events are found, suggest they try a different city or time period
-- If they ask about specific artists, mention if they have upcoming shows
-- Keep responses natural and engaging - write like a helpful friend
-- Don't make up events you don't know about
-- Be enthusiastic about helping people find great events!
-- If someone mentions a city that's not in the data, suggest similar cities or ask for clarification
-- Don't use markdown formatting like ** or *** - just use plain text
+${eventsData}
 
-${eventsData}`;
+User: "${messageContent}"`;
 
           console.log(`🤖 System prompt length: ${systemPrompt.length} characters`);
           console.log(`🤖 Events data length: ${eventsData.length} characters`);
@@ -388,7 +239,7 @@ ${eventsData}`;
             { role: "system", content: systemPrompt },
             { role: "user", content: messageContent }
           ],
-          max_tokens: 150,
+          max_tokens: 100,
           temperature: 0.7,
         });
 

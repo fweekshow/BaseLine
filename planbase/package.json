@@ -1,15 +1,12 @@
 {
-  "name": "@examples/xmtp-wellness-connections",
-  "version": "0.0.1",
+  "name": "planbase-agent",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "dev": "tsx --env-file ../.env --watch index.ts",
-    "gen:keys": "tsx ../../scripts/generateKeys.ts",
-    "lint": "cd ../.. && yarn eslint examples/xmtp-wellness-connections",
-    "start": "tsx index.ts",
-    "vercel-build": "tsc"
+    "dev": "tsx --watch index.ts",
+    "start": "tsx index.ts"
   },
   "dependencies": {
     "@scure/bip39": "^1.6.0",
