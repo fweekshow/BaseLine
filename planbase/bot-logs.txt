@@ -110,3 +110,81 @@
 [2025-08-05T14:44:15.722Z] 🔍 Starting to process message
 [2025-08-05T14:44:24.134Z] 📨 Received: "I am looking for rock concerts in LA" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
 [2025-08-05T14:44:24.134Z] 🔍 Starting to process message
+[2025-08-05T15:11:56.442Z] 📨 Received: "hey" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:11:56.445Z] 🔍 Starting to process message
+[2025-08-05T15:11:56.489Z] 📨 Received: "hey" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:11:56.490Z] 🔍 Starting to process message
+[2025-08-05T15:12:06.230Z] 📨 Received: "hi" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:12:06.231Z] 🔍 Starting to process message
+[2025-08-05T15:12:06.235Z] 📨 Received: "hi" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:12:06.235Z] 🔍 Starting to process message
+[2025-08-05T15:14:04.175Z] 📨 Received: "hey" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:14:04.181Z] 🔍 Starting to process message
+[2025-08-05T15:14:14.909Z] 📨 Received: "I am looking for events in San Francisco" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:14:14.910Z] 🔍 Starting to process message
+[2025-08-05T15:14:30.434Z] 📨 Received: "I am looking for a rock show in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:14:30.436Z] 🔍 Starting to process message
+[2025-08-05T15:16:03.465Z] 📨 Received: "When are the Who playing in Los Angeles?" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:16:03.466Z] 🔍 Starting to process message
+[2025-08-05T15:17:56.679Z] 📨 Received: "When are the Who playing in Los Angeles?" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:17:56.681Z] 🔍 Starting to process message
+[2025-08-05T15:22:44.719Z] 📨 Received: "When are the Who playing in Los Angeles?" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:22:44.722Z] 🔍 Starting to process message
+[2025-08-05T15:25:43.509Z] 📨 Received: "When is Ludacris playing in LA?" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:25:43.511Z] 🔍 Starting to process message
+[2025-08-05T15:26:30.337Z] 📨 Received: "when is The Who playing in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:26:30.338Z] 🔍 Starting to process message
+[2025-08-05T15:26:38.203Z] 📨 Received: "What about Ludacris?" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:26:38.204Z] 🔍 Starting to process message
+[2025-08-05T15:26:49.651Z] 📨 Received: "I am looking for Ludacris shows in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:26:49.651Z] 🔍 Starting to process message
+[2025-08-05T15:30:28.020Z] 📨 Received: "I am looking for Ludacris shows in LA" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:30:28.021Z] 🔍 Starting to process message
+[2025-08-05T15:38:45.262Z] 📨 Received: "I am looking for Ludacris shows in LA" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:38:45.263Z] 🔍 Starting to process message
+[2025-08-05T15:43:38.246Z] 📨 Received: "I am looking for Ludacris shows in LA" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:43:38.251Z] 🔍 Starting to process message
+[2025-08-05T15:44:28.655Z] 📨 Received: "can you give me details" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:44:28.657Z] 🔍 Starting to process message
+[2025-08-05T15:44:36.533Z] 📨 Received: "Ludacris" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:44:36.533Z] 🔍 Starting to process message
+[2025-08-05T15:57:57.145Z] 📨 Received: "Ludacris shows in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:57:57.146Z] 🔍 Starting to process message
+[2025-08-05T15:58:30.262Z] 📨 Received: "Find rock concerts in LA this weekend" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T15:58:30.266Z] 🔍 Starting to process message
+[2025-08-05T16:02:43.646Z] 📨 Received: "find rock concerts in LA this weekend" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:02:43.647Z] 🔍 Starting to process message
+[2025-08-05T16:03:03.551Z] 📨 Received: "Ludacris show in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:03:03.552Z] 🔍 Starting to process message
+[2025-08-05T16:04:58.800Z] 📨 Received: "Ludacris shows in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:04:58.801Z] 🔍 Starting to process message
+[2025-08-05T16:05:14.261Z] 📨 Received: "what's happening this weekend in New York?" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:05:14.262Z] 🔍 Starting to process message
+[2025-08-05T16:05:32.602Z] 📨 Received: "this weekend in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:05:32.606Z] 🔍 Starting to process message
+[2025-08-05T16:07:10.268Z] 📨 Received: "this weekend in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:07:10.270Z] 🔍 Starting to process message
+[2025-08-05T16:08:58.238Z] 📨 Received: "Rock shows in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:08:58.239Z] 🔍 Starting to process message
+[2025-08-05T16:09:14.396Z] 📨 Received: "Ludacris show in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:09:14.397Z] 🔍 Starting to process message
+[2025-08-05T16:12:51.859Z] 📨 Received: "Ludacris show in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:12:51.862Z] 🔍 Starting to process message
+[2025-08-05T16:15:36.224Z] 📨 Received: "Ludacris show in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:15:36.225Z] 🔍 Starting to process message
+[2025-08-05T16:20:03.502Z] 📨 Received: "Ludacris shows in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:20:03.503Z] 🔍 Starting to process message
+[2025-08-05T16:20:40.926Z] 📨 Received: "Modest Mouse shows in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:20:40.928Z] 🔍 Starting to process message
+[2025-08-05T16:22:07.022Z] 📨 Received: "Ludacris shows in Orange County" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:22:07.024Z] 🔍 Starting to process message
+[2025-08-05T16:22:20.068Z] 📨 Received: "Ludacris shows in Costa Mesa" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:22:20.068Z] 🔍 Starting to process message
+[2025-08-05T16:26:02.798Z] 📨 Received: "Ludacris shows in Los Angeles" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:26:02.799Z] 🔍 Starting to process message
+[2025-08-05T16:26:50.394Z] 📨 Received: "Give me shows in New Orleans this weekend" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:26:50.395Z] 🔍 Starting to process message
+[2025-08-05T16:30:58.935Z] 📨 Received: "give me shows in New Orleans this weekend" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:30:58.939Z] 🔍 Starting to process message
+[2025-08-05T16:31:19.462Z] 📨 Received: "Give me rap shows in Los Angeles this weekend" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-05T16:31:19.463Z] 🔍 Starting to process message

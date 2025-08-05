@@ -6,9 +6,7 @@
     "dev": "cd planbase && npx tsx --env-file ../.env index.ts",
     "start": "cd planbase && npx tsx --env-file ../.env index.ts",
     "planbase": "cd planbase && npx tsx --env-file ../.env index.ts",
-    "install:planbase": "cd planbase && npm install",
-    "build": "cd planbase && npm install && npm run build",
-    "vercel-build": "echo 'Build completed'"
+    "install:planbase": "cd planbase && npm install"
   },
   "devDependencies": {
     "tsx": "*"
