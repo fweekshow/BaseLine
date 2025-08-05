@@ -184,9 +184,28 @@ async function main() {
         // Use OpenAI for natural responses
         console.log("🤖 Using OpenAI for response...");
         
-          // Check if user is asking about events using AI-powered search
-          const eventKeywords = ['events', 'concerts', 'shows', 'show', 'what\'s happening', 'whats happening', 'tickets', 'shows in', 'events in', 'concerts in', 'rock', 'jazz', 'pop', 'country', 'hip hop', 'rap', 'indie', 'folk', 'electronic', 'dance', 'comedy', 'theater', 'sports', 'basketball', 'football', 'baseball', 'soccer', 'playing', 'when are', 'is playing', 'find', 'search', 'looking for', 'this weekend', 'next week', 'next month', 'weekend', 'week', 'month'];
-          const isEventQuery = eventKeywords.some(keyword => messageContent.toLowerCase().includes(keyword));
+          // Use AI to determine if this is an event query (more intelligent than keyword matching)
+          const eventQueryPrompt = `Determine if the user is asking about events, concerts, shows, or entertainment. Respond with ONLY "true" or "false".
+
+Examples:
+"Ludacris concert in LA" -> true
+"Ludacris concerts in LA" -> true  
+"Rock music in Miami" -> true
+"Pop shows in Austin" -> true
+"Hello how are you" -> false
+"What's the weather" -> false
+"Tell me a joke" -> false
+
+User message: "${messageContent}"`;
+
+          const eventQueryResponse = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [{ role: "user", content: eventQueryPrompt }],
+            max_tokens: 10,
+            temperature: 0,
+          });
+
+          const isEventQuery = eventQueryResponse.choices[0]?.message?.content?.toLowerCase().includes('true') || false;
           console.log(`🔍 Event query check: ${isEventQuery} for message: "${messageContent}"`);
           
           // Also check if user has a saved city and is asking about specific event types
