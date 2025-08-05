@@ -515,37 +515,32 @@ export class TicketmasterService {
         console.log(`✅ Using AI-parsed end date: ${endDate.toISOString()}`);
       }
 
-      // Strategy 1: Try attraction-based search first (more effective for artist searches)
-      if (searchParams.artist && searchParams.artist !== 'undefined') {
-        console.log(`🔍 Strategy 1: Searching for attraction "${searchParams.artist}"`);
-        const attractionId = await this.searchAttractionByName(searchParams.artist);
+      // Strategy 1: Use simple keyword search (like the working tests)
+      if (searchParams.artist && searchParams.artist !== 'undefined' && searchParams.artist !== 'null') {
+        console.log(`🔍 Strategy 1: Using keyword search for "${searchParams.artist}"`);
         
-        if (attractionId) {
-          console.log(`✅ Found attraction ID: ${attractionId}`);
-          
-          // Search for events by attraction ID
-          if (searchParams.city && searchParams.city !== 'undefined') {
-            events = await this.searchEventsByAttractionId(attractionId, searchParams.city, 10, startDate.toISOString(), endDate.toISOString());
-            console.log(`✅ Found ${events.length} events by attraction ID in ${searchParams.city}`);
-          }
-          
-          // If no events found in specific city, try statewide for California
-          if (events.length === 0 && searchParams.city && (searchParams.city.toLowerCase().includes('los angeles') || searchParams.city.toLowerCase().includes('la'))) {
-            console.log(`🔍 Trying statewide California search for attraction`);
-            events = await this.searchEventsByAttractionId(attractionId, 'California', 10, startDate.toISOString(), endDate.toISOString());
-            console.log(`✅ Found ${events.length} events by attraction ID statewide`);
-          }
-          
-          // If still no events, try nationwide
-          if (events.length === 0) {
-            console.log(`🔍 Trying nationwide search for attraction`);
-            events = await this.searchEventsByAttractionId(attractionId, '', 10, startDate.toISOString(), endDate.toISOString());
-            console.log(`✅ Found ${events.length} events by attraction ID nationwide`);
-          }
+        if (searchParams.city && searchParams.city !== 'undefined' && searchParams.city !== 'null') {
+          // Use the same approach as the working test-costa-mesa.js
+          events = await this.searchArtistShowsInCity(searchParams.artist, searchParams.city, 10, startDate.toISOString(), endDate.toISOString());
+          console.log(`✅ Found ${events.length} events using keyword search in ${searchParams.city}`);
+        }
+        
+        // If no events found in specific city, try statewide for California
+        if (events.length === 0 && searchParams.city && searchParams.city !== 'undefined' && searchParams.city !== 'null' && (searchParams.city.toLowerCase().includes('los angeles') || searchParams.city.toLowerCase().includes('la'))) {
+          console.log(`🔍 Trying statewide California search`);
+          events = await this.searchArtistShowsInCity(searchParams.artist, 'California', 10, startDate.toISOString(), endDate.toISOString());
+          console.log(`✅ Found ${events.length} events using keyword search statewide`);
+        }
+        
+        // If still no events, try nationwide
+        if (events.length === 0) {
+          console.log(`🔍 Trying nationwide search`);
+          events = await this.searchArtistShows(searchParams.artist, 10, startDate.toISOString(), endDate.toISOString());
+          console.log(`✅ Found ${events.length} events using keyword search nationwide`);
         }
       }
       
-      // Strategy 2: Fallback to flexible location search if attraction search didn't work
+      // Strategy 2: Fallback to flexible location search if keyword search didn't work
       if (events.length === 0) {
         console.log(`🔍 Strategy 2: Using flexible location search`);
         events = await this.searchWithFlexibleLocation(searchParams, startDate, endDate);
@@ -593,9 +588,9 @@ export class TicketmasterService {
 
     try {
       const prompt = `Parse this event search query and extract search parameters. Return ONLY a valid JSON object with these fields:
-- city: the city mentioned (or use "${userCity}" if no city mentioned)
-- artist: any artist, band, or performer name mentioned (e.g., "Ludacris", "Taylor Swift", "The Weeknd"). If someone asks for "Ludacris show", the artist is "Ludacris".
-- genre: music genre or event type (rock, jazz, pop, country, hip hop, rap, indie, folk, electronic, dance, comedy, theater, sports, etc.)
+- city: the city mentioned (or use "${userCity}" if no city mentioned). If no city mentioned, omit this field.
+- artist: any artist, band, or performer name mentioned (e.g., "Ludacris", "Taylor Swift", "The Weeknd"). If someone asks for "Ludacris show", the artist is "Ludacris". If no artist mentioned, omit this field.
+- genre: music genre or event type (rock, jazz, pop, country, hip hop, rap, indie, folk, electronic, dance, comedy, theater, sports, etc.). If no genre mentioned, omit this field.
 - dateRange: object with startDate and endDate in ISO format. Use CURRENT DATES:
   * "this weekend" = Friday to Sunday of current week (if today is Friday-Sunday, use this weekend; if today is Monday-Thursday, use upcoming Friday-Sunday)
   * "next week" = next Monday to Sunday  
@@ -607,6 +602,7 @@ IMPORTANT: Use CURRENT dates (2025), NOT past dates (2023). Today is ${new Date(
 IMPORTANT: If an artist name is mentioned, extract it exactly as written.
 IMPORTANT: For queries like "Ludacris show in Los Angeles", the artist should be "Ludacris".
 IMPORTANT: For "this weekend", calculate correctly: if today is Friday-Sunday, use this weekend; if today is Monday-Thursday, use the upcoming Friday-Sunday.
+IMPORTANT: Do NOT include fields with "undefined" or "null" values. Only include fields that have actual values.
 
 Query: "${query}"
 
@@ -654,11 +650,11 @@ Return ONLY the JSON object, no markdown formatting, no code blocks, no addition
     const baseUrl = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${this.apiKey}&size=5&startDateTime=${encodeURIComponent(startDate.toISOString().replace(/\.\d{3}Z$/, 'Z'))}&endDateTime=${encodeURIComponent(endDate.toISOString().replace(/\.\d{3}Z$/, 'Z'))}&sort=date,asc&includeTBA=no&includeTBD=no`;
     
     // Strategy 1: Exact city match
-    if (searchParams.city && searchParams.city !== 'undefined') {
+    if (searchParams.city && searchParams.city !== 'undefined' && searchParams.city !== 'null') {
       console.log(`🔍 Strategy 1: Searching in exact city: ${searchParams.city}`);
       let url = baseUrl + `&city=${encodeURIComponent(searchParams.city)}`;
       
-      if (searchParams.artist && searchParams.artist !== 'undefined') {
+      if (searchParams.artist && searchParams.artist !== 'undefined' && searchParams.artist !== 'null') {
         // Use keyword search for better results in flexible location search
         url += `&keyword=${encodeURIComponent(searchParams.artist)}`;
       }
@@ -675,7 +671,7 @@ Return ONLY the JSON object, no markdown formatting, no code blocks, no addition
       console.log(`🔍 Strategy 2: Searching statewide in California`);
       let url = baseUrl + `&stateCode=CA`;
       
-      if (searchParams.artist && searchParams.artist !== 'undefined') {
+      if (searchParams.artist && searchParams.artist !== 'undefined' && searchParams.artist !== 'null') {
         // Use keyword search for better results in flexible location search
         url += `&keyword=${encodeURIComponent(searchParams.artist)}`;
       }
@@ -690,7 +686,7 @@ Return ONLY the JSON object, no markdown formatting, no code blocks, no addition
       console.log(`🔍 Strategy 2b: Searching Los Angeles DMA (324)`);
       let dmaUrl = baseUrl + `&dmaId=324`;
       
-      if (searchParams.artist && searchParams.artist !== 'undefined') {
+      if (searchParams.artist && searchParams.artist !== 'undefined' && searchParams.artist !== 'null') {
         dmaUrl += `&keyword=${encodeURIComponent(searchParams.artist)}`;
       }
       
@@ -705,7 +701,7 @@ Return ONLY the JSON object, no markdown formatting, no code blocks, no addition
     console.log(`🔍 Strategy 3: Searching nationwide`);
     let url = baseUrl;
     
-    if (searchParams.artist && searchParams.artist !== 'undefined') {
+    if (searchParams.artist && searchParams.artist !== 'undefined' && searchParams.artist !== 'null') {
       // Use keyword search for better results in flexible location search
       url += `&keyword=${encodeURIComponent(searchParams.artist)}`;
     }
