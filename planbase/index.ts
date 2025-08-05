@@ -18,7 +18,20 @@ import fs from 'fs';
 // Load environment from the main project directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+// Try to load production environment first, fallback to development
+const envPath = path.resolve(__dirname, '../.env.production');
+const devEnvPath = path.resolve(__dirname, '../.env');
+
+if (fs.existsSync(envPath)) {
+  console.log('📋 Loading production environment variables');
+  dotenv.config({ path: envPath });
+} else if (fs.existsSync(devEnvPath)) {
+  console.log('📋 Loading development environment variables');
+  dotenv.config({ path: devEnvPath });
+} else {
+  console.log('⚠️ No environment file found, using system environment variables');
+}
 
 /* Get the wallet key associated to the public key of
  * the agent and the encryption key for the local db
