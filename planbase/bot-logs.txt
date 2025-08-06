@@ -378,3 +378,123 @@
 [2025-08-05T20:59:55.724Z] 🔍 Starting to process message
 [2025-08-05T20:59:59.656Z] 📨 Received: "Electronic music in Austin" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
 [2025-08-05T20:59:59.657Z] 🔍 Starting to process message
+[2025-08-06T22:05:33.639Z] 📨 Received: "hi" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-06T22:05:33.640Z] 🔍 Starting to process message
+[2025-08-06T22:05:51.875Z] 📨 Received: "/rsvp Ludacris Concert" from 6e15234846961c25b824348edaefc6ae488a389c63847d72a51d1eccabbdc559
+[2025-08-06T22:05:51.875Z] 🔍 Starting to process message
+[2025-08-06T22:16:09.175Z] 📨 Received: "Tedt" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:16:09.176Z] 🔍 Starting to process message
+[2025-08-06T22:16:17.855Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:16:17.856Z] 🔍 Starting to process message
+[2025-08-06T22:16:26.206Z] 📨 Received: "/rsvp ludacris" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:16:26.206Z] 🔍 Starting to process message
+[2025-08-06T22:17:46.732Z] 📨 Received: "Events in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:17:46.733Z] 🔍 Starting to process message
+[2025-08-06T22:20:16.811Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:20:16.812Z] 🔍 Starting to process message
+[2025-08-06T22:20:23.352Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:20:23.353Z] 🔍 Starting to process message
+[2025-08-06T22:20:31.847Z] 📨 Received: "/rsvp ludacris" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:20:31.847Z] 🔍 Starting to process message
+[2025-08-06T22:32:12.388Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:32:12.391Z] 🔍 Starting to process message
+[2025-08-06T22:32:21.219Z] 📨 Received: "/rsvp Ludacris" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:32:21.219Z] 🔍 Starting to process message
+[2025-08-06T22:33:24.826Z] 📨 Received: "Got called into work today so just now catching up" from 424be8d40adc79a967e6a2a3e0e488ea5844dc790618011dab7da107f2a8bc87
+[2025-08-06T22:33:24.828Z] 🔍 Starting to process message
+[2025-08-06T22:34:57.457Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:34:57.458Z] 🔍 Starting to process message
+[2025-08-06T22:35:22.758Z] 📨 Received: "Miami next week" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:35:22.759Z] 🔍 Starting to process message
+[2025-08-06T22:35:38.776Z] 📨 Received: "LA punk shows" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:35:38.778Z] 🔍 Starting to process message
+[2025-08-06T22:35:51.628Z] 📨 Received: "/rsvp Ludacris" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:35:51.629Z] 🔍 Starting to process message
+[2025-08-06T22:36:05.440Z] 📨 Received: "From what I heard the space went well?" from 424be8d40adc79a967e6a2a3e0e488ea5844dc790618011dab7da107f2a8bc87
+[2025-08-06T22:36:05.440Z] 🔍 Starting to process message
+[2025-08-06T22:37:11.035Z] 📨 Received: "I missed it bc of work too and so bummed" from f6ebca8c89a9c277c5f247bde9394863da61c1f6a807ea360bd8c5d0b5f67d21
+[2025-08-06T22:37:11.035Z] 🔍 Starting to process message
+[2025-08-06T22:39:40.542Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:39:40.543Z] 🔍 Starting to process message
+[2025-08-06T22:40:05.302Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:40:05.303Z] 🔍 Starting to process message
+[2025-08-06T22:40:41.025Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:40:41.027Z] 🔍 Starting to process message
+[2025-08-06T22:40:58.151Z] 📨 Received: "/rsvp Ludacris" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:40:58.152Z] 🔍 Starting to process message
+[2025-08-06T22:41:02.701Z] 📨 Received: "1" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:41:02.701Z] 🔍 Starting to process message
+[2025-08-06T22:41:45.762Z] 📨 Received: "I heard Ludacris is playing in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:41:45.762Z] 🔍 Starting to process message
+[2025-08-06T22:42:11.073Z] 📨 Received: "/rsvp ludacris" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:42:11.073Z] 🔍 Starting to process message
+[2025-08-06T22:42:14.343Z] 📨 Received: "2" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T22:42:14.343Z] 🔍 Starting to process message
+[2025-08-06T22:42:28.235Z] 📨 Received: "Need a way to ping all members" from 424be8d40adc79a967e6a2a3e0e488ea5844dc790618011dab7da107f2a8bc87
+[2025-08-06T22:42:28.236Z] 🔍 Starting to process message
+[2025-08-06T22:47:48.587Z] 📨 Received: "Big spaces tonight" from 424be8d40adc79a967e6a2a3e0e488ea5844dc790618011dab7da107f2a8bc87
+[2025-08-06T22:47:48.588Z] 🔍 Starting to process message
+[2025-08-06T22:48:09.758Z] 📨 Received: "https://x.com/QuigleyNFT/status/1952909334746415339?t=OXOtrmaUv4z9iAS8kjRW8Q&s=19" from 424be8d40adc79a967e6a2a3e0e488ea5844dc790618011dab7da107f2a8bc87
+[2025-08-06T22:48:09.759Z] 🔍 Starting to process message
+[2025-08-06T23:00:42.750Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:00:42.752Z] 🔍 Starting to process message
+[2025-08-06T23:02:04.895Z] 📨 Received: "Real ones" from 424be8d40adc79a967e6a2a3e0e488ea5844dc790618011dab7da107f2a8bc87
+[2025-08-06T23:02:04.896Z] 🔍 Starting to process message
+[2025-08-06T23:04:01.261Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:04:01.261Z] 🔍 Starting to process message
+[2025-08-06T23:06:37.814Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:06:49.890Z] 📨 Received: "Shows In LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:10:21.006Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:10:26.630Z] 📨 Received: "Shows in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:10:57.501Z] 📨 Received: "https://x.com/freaknjoe/status/1953232268383928418?s=46&t=KfKzi7Q7ZiIjoL27FxS9ig" from 1f0ecba92908df667e661583d9eeb5e004f2688266dff639289e311db40796d8
+[2025-08-06T23:13:39.325Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:13:52.388Z] 📨 Received: "Shows in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:14:37.446Z] 📨 Received: "LA shows next week" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:17:26.324Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:17:30.197Z] 📨 Received: "Shows in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:17:41.035Z] 📨 Received: "Shows next week in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:19:20.098Z] 📨 Received: "Shows in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:19:32.166Z] 📨 Received: "Shows in LA next week" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:19:56.319Z] 📨 Received: "Rap shows coming up in the next month in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:20:37.521Z] 📨 Received: "/rsvp $suicideboy$" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:20:47.180Z] 📨 Received: "/rsvp ludacris" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:21:52.628Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:22:01.063Z] 📨 Received: "/rsvp humankind" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:22:25.622Z] 📨 Received: "I’m up to help you, just tell me what you need, we’re supposed to be here to support each others" from 8ca97daddd724939a99c3393b58db7ef7dd230157b2f4816f6a3bc4fe9ebdad0
+[2025-08-06T23:26:26.419Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:26:32.570Z] 📨 Received: "Humankind" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:27:01.570Z] 📨 Received: "/rsvp humankind" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:27:30.580Z] 📨 Received: "https://x.com/latenightonbase/status/1953234793606586558?s=46" from 1ecfe51d0daed8299798638ee1d5fcd203cbe3c44a5a9d7468b5a086baef20b3
+[2025-08-06T23:28:14.478Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:28:20.002Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:28:22.052Z] 📨 Received: "Make  some noise in my tweet
+
+Put everything  under the base section 
+
+Coinbase going all in on three platforms as stated in their  shareholder report 
+
+Baseapp, zora, farcaster" from 1ecfe51d0daed8299798638ee1d5fcd203cbe3c44a5a9d7468b5a086baef20b3
+[2025-08-06T23:28:26.145Z] 📨 Received: "Humankind" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:29:30.140Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:29:36.338Z] 📨 Received: "Humankind" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:29:37.896Z] 📨 Received: "If you guys believe in this project make a tweet. Every little thing counts! 
+
+Work for your bags people" from 1ecfe51d0daed8299798638ee1d5fcd203cbe3c44a5a9d7468b5a086baef20b3
+[2025-08-06T23:30:09.605Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:30:18.217Z] 📨 Received: "Los Angeles next week" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:32:34.527Z] 📨 Received: "Los Angeles events next week" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:32:56.916Z] 📨 Received: "/rsvp Tribal Seeds" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:33:04.390Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:33:11.245Z] 📨 Received: "Tribal Seeds" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:34:46.211Z] 📨 Received: "The agent works but the part at the bottom about the quick actions doesnt" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:34:58.998Z] 📨 Received: "The “buttons” within the agents" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:35:40.138Z] 📨 Received: "Like this… just looks really clean" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:36:22.091Z] 📨 Received: "work in progress though" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:39:41.076Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:39:45.929Z] 📨 Received: "Ludacris" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:39:50.798Z] 📨 Received: "1" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:40:39.916Z] 📨 Received: "Hey" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:40:45.851Z] 📨 Received: "Ludacris in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:41:24.017Z] 📨 Received: "Ludacris in LA" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:41:33.405Z] 📨 Received: "/rsvp Ludacris" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424
+[2025-08-06T23:41:41.727Z] 📨 Received: "/rsvp" from 132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424

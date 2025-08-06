@@ -100,18 +100,11 @@ async function main() {
       const messageContent = message.content as string;
       const logMessage = `[${new Date().toISOString()}] 📨 Received: "${messageContent}" from ${message.senderInboxId}`;
       console.log(logMessage);
-      console.log(`🔍 Processing message: "${messageContent}"`);
       
       // Also log to file
       fs.appendFileSync('bot-logs.txt', logMessage + '\n');
-      
-      // Log processing start
-      const processLog = `[${new Date().toISOString()}] 🔍 Starting to process message`;
-      console.log(processLog);
-      fs.appendFileSync('bot-logs.txt', processLog + '\n');
 
       /* Get the conversation from the local db */
-        console.log("🔍 Getting conversation...");
       const conversation = await client.conversations.getConversationById(
         message.conversationId,
       );
@@ -122,19 +115,12 @@ async function main() {
         continue;
       }
 
-        console.log("✅ Conversation found, processing...");
-
       try {
         // Determine if this is a group conversation (following XMTP SDK patterns)
         const isGroup = conversation instanceof Group;
-        console.log(`📝 Conversation type: ${isGroup ? 'Group' : 'DM'}`);
-        console.log(`📝 Conversation ID: ${conversation.id}`);
-        console.log(`📝 Conversation constructor: ${conversation.constructor.name}`);
-        console.log(`📝 Is Group instance: ${conversation instanceof Group}`);
         
         // Get agent's address for mention detection
         const agentAddress = client.accountIdentifier?.identifier;
-          console.log(`🤖 Agent address: ${agentAddress}`);
         
         // Check if agent is mentioned (for group chats) - look for @mentions of agent's address or common names
         const isMentioned = isGroup && (
@@ -145,12 +131,9 @@ async function main() {
           (agentAddress && messageContent.toLowerCase().includes(agentAddress.toLowerCase())) ||
           messageContent.toLowerCase().includes('@planbase.base.eth') // User's basename
         );
-          
-          console.log(`📢 Mentioned in group: ${isMentioned}`);
         
         // Only respond in solo chats or if mentioned in groups
         if (isGroup && !isMentioned) {
-            console.log("⏭️ Skipping group message (not mentioned)");
           continue;
         }
 
@@ -173,6 +156,14 @@ async function main() {
           continue;
         }
 
+        // Check for simple greetings - respond with simple format
+        const simpleGreetings = ['hey', 'hi', 'hello', 'sup', 'whats up', 'yo'];
+        if (simpleGreetings.some(greeting => messageContent.toLowerCase().includes(greeting))) {
+          const response = "Artist, Date, Venue";
+          await conversation.send(response);
+          continue;
+        }
+
         // Check for San Francisco events - hardcoded response (FIRST!)
         if (messageContent.toLowerCase().includes('san francisco') || messageContent.toLowerCase().includes('sf')) {
           console.log(`🎯 San Francisco event detected - sending Onchain Summit response`);
@@ -184,12 +175,10 @@ async function main() {
         // Use OpenAI for natural responses
         console.log("🤖 Using OpenAI for response...");
         
-          // Use AI to determine if this is an event query (more intelligent than keyword matching)
-          const eventQueryPrompt = `Determine if the user is asking about events, concerts, shows, or entertainment. Respond with ONLY "true" or "false".
+        // Use AI to determine if this is an event query (more intelligent than keyword matching)
+        const eventQueryPrompt = `Determine if the user is asking about events, concerts, shows, or entertainment. Respond with ONLY "true" or "false".
 
 Examples:
-"Ludacris concert in LA" -> true
-"Ludacris concerts in LA" -> true  
 "Rock music in Miami" -> true
 "Pop shows in Austin" -> true
 "Hello how are you" -> false
@@ -198,59 +187,50 @@ Examples:
 
 User message: "${messageContent}"`;
 
-          const eventQueryResponse = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
-            messages: [{ role: "user", content: eventQueryPrompt }],
-            max_tokens: 10,
-            temperature: 0,
-          });
+        const eventQueryResponse = await openai.chat.completions.create({
+          model: "gpt-4o-mini",
+          messages: [{ role: "user", content: eventQueryPrompt }],
+          max_tokens: 10,
+          temperature: 0,
+        });
 
-          const isEventQuery = eventQueryResponse.choices[0]?.message?.content?.toLowerCase().includes('true') || false;
-          console.log(`🔍 Event query check: ${isEventQuery} for message: "${messageContent}"`);
+        const isEventQuery = eventQueryResponse.choices[0]?.message?.content?.toLowerCase().includes('true') || false;
+        
+        // Also check if user has a saved city and is asking about specific event types
+        const hasContext = userCity && (messageContent.toLowerCase().includes('what about') || 
+                                      messageContent.toLowerCase().includes('how about') ||
+                                      messageContent.toLowerCase().includes('any') ||
+                                      messageContent.toLowerCase().includes('find') ||
+                                      messageContent.toLowerCase().includes('search'));
+        
+        const shouldSearchEvents = isEventQuery || hasContext;
+        
+        let eventsData = '';
+        
+        if (shouldSearchEvents) {
+          console.log(`🔍 Using AI-powered search for: "${messageContent}"`);
           
-          // Also check if user has a saved city and is asking about specific event types
-          const hasContext = userCity && (messageContent.toLowerCase().includes('what about') || 
-                                        messageContent.toLowerCase().includes('how about') ||
-                                        messageContent.toLowerCase().includes('any') ||
-                                        messageContent.toLowerCase().includes('find') ||
-                                        messageContent.toLowerCase().includes('search'));
-          
-          const shouldSearchEvents = isEventQuery || hasContext;
-          
-          let eventsData = '';
-          
-          if (shouldSearchEvents) {
-            console.log(`🔍 Using AI-powered search for: "${messageContent}"`);
+          try {
+            // Use the new AI-powered search
+            const userCity = userCities.get(message.senderInboxId);
+            const searchResult = await ticketmasterService.aiSearch(messageContent, userCity);
             
-            try {
-              // Use the new AI-powered search
-              const userCity = userCities.get(message.senderInboxId);
-              const searchResult = await ticketmasterService.aiSearch(messageContent, userCity);
-              
-              console.log(`🔍 AI Search result: ${searchResult.events.length} events found`);
-              console.log(`🔍 Search parameters:`, searchResult.searchParams);
-              
-              if (searchResult.events.length > 0) {
-                eventsData = `\n\n${searchResult.explanation}\n\n${ticketmasterService.formatEventsList(searchResult.events)}`;
-                console.log(`📝 Events data being sent to OpenAI: ${eventsData.substring(0, 200)}...`);
-              } else {
-                eventsData = `\n\n${searchResult.explanation}`;
-                console.log(`❌ No events found: ${searchResult.explanation}`);
-              }
-            } catch (error) {
-              console.error('Error in AI-powered event search:', error);
-              eventsData = `\n\nI'm having trouble searching for events right now. Please try again or be more specific about what you're looking for!`;
+            if (searchResult.events.length > 0) {
+              eventsData = `\n\n${searchResult.explanation}\n\n${ticketmasterService.formatEventsList(searchResult.events)}`;
+            } else {
+              eventsData = `\n\n${searchResult.explanation}`;
             }
+          } catch (error) {
+            console.error('Error in AI-powered event search:', error);
+            eventsData = `\n\nI'm having trouble searching for events right now. Please try again or be more specific about what you're looking for!`;
           }
-          
-          const systemPrompt = `You are a helpful event finder. Use ONLY the real event data below. Show ALL events provided - don't filter them out. Keep responses VERY short - just Artist, Date, Venue. No ticket links, no extra text, no formatting.
+        }
+        
+        const systemPrompt = `You are a helpful event finder. Use ONLY the real event data below. Show ALL events provided - don't filter them out. Keep responses VERY short - just Artist, Date, Venue. No ticket links, no extra text, no formatting.
 
 ${eventsData}
 
 User: "${messageContent}"`;
-
-          console.log(`🤖 System prompt length: ${systemPrompt.length} characters`);
-          console.log(`🤖 Events data length: ${eventsData.length} characters`);
 
         const completion = await openai.chat.completions.create({
           model: "gpt-4o-mini",
@@ -288,44 +268,34 @@ User: "${messageContent}"`;
 
       } catch (error) {
         console.error("❌ Error processing message:", error);
-          
-          // Log the full error details
-          if (error instanceof Error) {
-            console.error("Error name:", error.name);
-            console.error("Error message:", error.message);
-            console.error("Error stack:", error.stack);
-          } else {
-            console.error("Unknown error type:", typeof error);
-            console.error("Error value:", error);
-          }
-          
+        
         // Add delay to prevent database lock issues
         await new Promise(resolve => setTimeout(resolve, 1000));
-          
-          try {
-        await conversation.send(
-          "Sorry, I encountered an error. Here are the two options I can share right now:\n\n" + getCombinedResponse()
-        );
-          } catch (sendError) {
-            console.error("❌ Failed to send error response:", sendError);
-          }
+        
+        try {
+          await conversation.send(
+            "Sorry, I encountered an error. Here are the two options I can share right now:\n\n" + getCombinedResponse()
+          );
+        } catch (sendError) {
+          console.error("❌ Failed to send error response:", sendError);
         }
       }
-    } catch (streamError) {
-      console.error("❌ Error starting message stream:", streamError);
-      if (streamError instanceof Error) {
-        console.error("Error name:", streamError.name);
-        console.error("Error message:", streamError.message);
-        console.error("Error stack:", streamError.stack);
-      } else {
-        console.error("Unknown error type:", typeof streamError);
-        console.error("Error value:", streamError);
-      }
     }
-  };
+  } catch (streamError) {
+    console.error("❌ Error starting message stream:", streamError);
+    if (streamError instanceof Error) {
+      console.error("Error name:", streamError.name);
+      console.error("Error message:", streamError.message);
+      console.error("Error stack:", streamError.stack);
+    } else {
+      console.error("Unknown error type:", typeof streamError);
+      console.error("Error value:", streamError);
+    }
+  }
+};
 
-  // Start the message stream
-  void messageStream();
+// Start the message stream
+void messageStream();
 }
 
 main().catch(console.error); 
