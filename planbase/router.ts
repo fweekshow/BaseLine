@@ -6,7 +6,7 @@ export interface MessageContext {
   senderInboxId: string;
 }
 
-export class WellnessRouter {
+export class EventRouter {
   static shouldRespond(context: MessageContext): boolean {
     // In direct messages, always respond
     if (!context.isGroup) {
@@ -21,13 +21,9 @@ export class WellnessRouter {
     const commands: string[] = [];
     const lowerMessage = message.toLowerCase();
     
-    // Check for wellness-related keywords
-    if (lowerMessage.includes('wellness') || lowerMessage.includes('health')) {
-      commands.push('wellness');
-    }
-    
-    if (lowerMessage.includes('dance') || lowerMessage.includes('therapy') || lowerMessage.includes('bianca')) {
-      commands.push('dance');
+    // Check for event-related keywords
+    if (lowerMessage.includes('events') || lowerMessage.includes('shows') || lowerMessage.includes('concerts')) {
+      commands.push('events');
     }
     
     if (lowerMessage.includes('summit') || lowerMessage.includes('onchain')) {
@@ -48,8 +44,8 @@ export class WellnessRouter {
   static getResponse(context: MessageContext): string {
     const commands = this.parseMessage(context.messageContent);
     
-    if (commands.includes('dance')) {
-      return "💃 I'd love to connect you with Bianca's Flow for dance therapy sessions in Echo Park! They offer amazing movement-based wellness sessions. Would you like me to send you the details?";
+    if (commands.includes('events')) {
+      return "🎵 I can help you find events and concerts! Try asking me about specific artists or locations like 'Shows in LA' or 'Drake concerts'. I can also help you RSVP to events with /rsvp [artist].";
     }
     
     if (commands.includes('summit')) {
@@ -57,7 +53,7 @@ export class WellnessRouter {
 
 📅 **Date**: August 21st-24th, 2025
 📍 **Location**: San Francisco, CA
-🎯 **What**: Wellness and tech event
+🎯 **What**: Tech and innovation event
 🌐 **Website**: https://www.onchainsummit.io
 
 **Schedule Highlights:**
@@ -70,7 +66,7 @@ Check out the full details at https://www.onchainsummit.io! 🚀`;
     }
     
     if (commands.includes('nearby')) {
-      return "📍 I can help you find wellness activities nearby! I know of dance therapy sessions with Bianca's Flow in Echo Park, and there's the Onchain Summit 2025 in San Francisco from August 21st-24th. What interests you most?";
+      return "📍 I can help you find events nearby! I know about the Onchain Summit 2025 in San Francisco from August 21st-24th, and I can search for concerts and shows in your area. What interests you most?";
     }
     
     if (commands.includes('interested')) {
@@ -78,7 +74,7 @@ Check out the full details at https://www.onchainsummit.io! 🚀`;
     }
     
     // Default response
-    return "Hi! I'm your wellness concierge. I can help you find dance therapy sessions with Bianca's Flow in Echo Park or tell you about the Onchain Summit 2025 in San Francisco from August 21st-24th. What would you like to know?";
+    return "Hi! I'm your event assistant. I can help you find concerts and shows, or tell you about the Onchain Summit 2025 in San Francisco from August 21st-24th. What would you like to know?";
   }
 
   static isImInMessage(message: string): boolean {

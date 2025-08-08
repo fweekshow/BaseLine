@@ -4,11 +4,13 @@ import {
   logAgentDetails,
   validateEnvironment,
 } from "./helpers/client.js";
-import { Client, Group, type XmtpEnv } from "@xmtp/node-sdk";
+import { Client, Group, type XmtpEnv, ContentTypeId } from "@xmtp/node-sdk";
 import OpenAI from "openai";
-import { WellnessRouter, type MessageContext } from './router.js';
+import { EventRouter, type MessageContext } from './router.js';
 import { getCombinedResponse } from './data.js';
 import { TicketmasterService, type TicketmasterEvent } from './helpers/ticketmaster.js';
+import { DataManager } from './data-manager.js';
+import { MessageProcessor } from './message-processor.js';
 
 import dotenv from 'dotenv';
 import fs from 'fs';
@@ -34,10 +36,11 @@ const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 /* Initialize the Ticketmaster service */
 const ticketmasterService = new TicketmasterService(TICKETMASTER_API_KEY, openai);
 
-// Simple in-memory storage for user cities (in production, use a database)
-const userCities = new Map<string, string>();
-const userAddresses = new Map<string, string>();
-const pendingAddressRequests = new Set<string>();
+/* Initialize the Data Manager for structured data storage */
+const dataManager = new DataManager('./data');
+
+/* Initialize the Message Processor */
+const messageProcessor = new MessageProcessor(dataManager, ticketmasterService, openai);
 
 /**
  * Main function to run the Wellness Connections agent
@@ -63,6 +66,41 @@ async function main() {
   await client.conversations.sync();
   console.log("✅ Conversations synced successfully");
 
+
+  
+  // Define Base App content type strings
+  const ACTIONS_CONTENT_TYPE = "coinbase.com/actions:1.0";
+  const INTENT_CONTENT_TYPE = "coinbase.com/intent:1.0";
+  
+  // Send Quick Actions exactly as Base App expects
+  const sendQuickActions = async (conversation: any, quickActionSet: any) => {
+    try {
+      // Create the actions content with proper structure exactly as Base docs specify
+      const actionsContent = {
+        id: quickActionSet.id,
+        description: quickActionSet.description,
+        actions: quickActionSet.actions,
+        expiresAt: quickActionSet.expiresAt.toISOString()
+      };
+      
+      // Send the JSON directly - Base App should detect and render as buttons
+      await conversation.send(JSON.stringify(actionsContent));
+      console.log("✅ Sent Quick Actions as JSON for Base App");
+    } catch (error) {
+      console.log("❌ Failed to send Quick Actions, falling back to text");
+      // Fallback to structured text
+      const fallbackMessage = `${quickActionSet.description}
+
+[QUICK ACTIONS]
+${quickActionSet.actions.map((action: any, index: number) => 
+  `${index + 1}. ${action.label} (${action.style})`
+).join('\n')}
+
+Reply with the number to select!`;
+      await conversation.send(fallbackMessage);
+    }
+  };
+  
   // Stream all messages for wellness responses
   const messageStream = async () => {
     console.log("🤖 Wellness Connections agent is listening...");
@@ -86,9 +124,11 @@ async function main() {
         continue;
       }
       
-      // Accept text, reaction, and reply content types, but only process if we have content
-      if (message.contentType?.typeId !== "text" && message.contentType?.typeId !== "reaction" && message.contentType?.typeId !== "reply") {
-          console.log("⏭️ Skipping message (not text, reaction, or reply content type)");
+      // Only process text and XIP-67 content types
+      if (message.contentType?.typeId !== "text" && 
+          message.contentType?.typeId !== ACTIONS_CONTENT_TYPE &&
+          message.contentType?.typeId !== INTENT_CONTENT_TYPE) {
+          console.log("⏭️ Skipping message (not supported content type)");
         continue;
       }
       
@@ -114,157 +154,60 @@ async function main() {
         console.log("❌ Unable to find conversation, skipping");
         continue;
       }
+      
+      // Handle XIP-67 Intent content types and prefixed messages
+      if (message.contentType?.typeId === INTENT_CONTENT_TYPE || messageContent.startsWith('XIP-67-INTENT:')) {
+        try {
+          let intentData;
+          if (messageContent.startsWith('XIP-67-INTENT:')) {
+            intentData = JSON.parse(messageContent.replace('XIP-67-INTENT:', ''));
+          } else {
+            intentData = JSON.parse(messageContent);
+          }
+          console.log(`🎯 Received XIP-67 Intent: ${intentData.actionId}`);
+          
+          // Simple RSVP handling
+          if (intentData.actionId && intentData.actionId.startsWith('rsvp_')) {
+            const action = intentData.actionId.replace('rsvp_', '');
+            await conversation.send(`RSVP recorded: ${action}! Thanks for letting us know.`);
+            continue;
+          }
+        } catch (e) {
+          console.log("⚠️ Failed to parse XIP-67 Intent");
+        }
+      }
 
       try {
-        // Determine if this is a group conversation (following XMTP SDK patterns)
-        const isGroup = conversation instanceof Group;
+        // Use the new structured message processor
+        const response = await messageProcessor.processMessage(message, conversation);
         
-        // Get agent's address for mention detection
-        const agentAddress = client.accountIdentifier?.identifier;
+        // Send the response
+        await conversation.send(response.content);
         
-        // Check if agent is mentioned (for group chats) - look for @mentions of agent's address or common names
-        const isMentioned = isGroup && (
-          messageContent.toLowerCase().includes('@wellness') || 
-          messageContent.toLowerCase().includes('@wellnessconnections') ||
-          messageContent.toLowerCase().includes('@wellnessagent') ||
-          messageContent.toLowerCase().includes('@agent') ||
-          (agentAddress && messageContent.toLowerCase().includes(agentAddress.toLowerCase())) ||
-          messageContent.toLowerCase().includes('@planbase.base.eth') // User's basename
-        );
-        
-        // Only respond in solo chats or if mentioned in groups
-        if (isGroup && !isMentioned) {
-          continue;
-        }
-
-        // Get user's city for context
-        const userCity = userCities.get(message.senderInboxId) || 'your area';
-
-        // Check for hardcoded responses first
-        const commands = WellnessRouter.parseMessage(messageContent);
-        
-        if (commands.length > 0) {
-          const context: MessageContext = {
-            isGroup,
-            isMentioned,
-            isReply: false,
-            messageContent,
-            senderInboxId: message.senderInboxId
-          };
-          const response = WellnessRouter.getResponse(context);
-          await conversation.send(response);
-          continue;
-        }
-
-        // Check for simple greetings - respond with simple format
-        const simpleGreetings = ['hey', 'hi', 'hello', 'sup', 'whats up', 'yo'];
-        if (simpleGreetings.some(greeting => messageContent.toLowerCase().includes(greeting))) {
-          const response = "Artist, Date, Venue";
-          await conversation.send(response);
-          continue;
-        }
-
-        // Check for San Francisco events - hardcoded response (FIRST!)
-        if (messageContent.toLowerCase().includes('san francisco') || messageContent.toLowerCase().includes('sf')) {
-          console.log(`🎯 San Francisco event detected - sending Onchain Summit response`);
-          const onchainResponse = `Onchain Summit - Sep 9-10, 2025, San Francisco\n\nCheck out the details: https://onchainsummit.io\n\nThis is the premier blockchain event in SF!`;
-          await conversation.send(onchainResponse);
-          continue;
+        // Handle Quick Actions if present
+        if (response.quickActions) {
+          await sendQuickActions(conversation, response.quickActions);
         }
         
-        // Use OpenAI for natural responses
-        console.log("🤖 Using OpenAI for response...");
-        
-        // Use AI to determine if this is an event query (more intelligent than keyword matching)
-        const eventQueryPrompt = `Determine if the user is asking about events, concerts, shows, or entertainment. Respond with ONLY "true" or "false".
-
-Examples:
-"Rock music in Miami" -> true
-"Pop shows in Austin" -> true
-"Hello how are you" -> false
-"What's the weather" -> false
-"Tell me a joke" -> false
-
-User message: "${messageContent}"`;
-
-        const eventQueryResponse = await openai.chat.completions.create({
-          model: "gpt-4o-mini",
-          messages: [{ role: "user", content: eventQueryPrompt }],
-          max_tokens: 10,
-          temperature: 0,
-        });
-
-        const isEventQuery = eventQueryResponse.choices[0]?.message?.content?.toLowerCase().includes('true') || false;
-        
-        // Also check if user has a saved city and is asking about specific event types
-        const hasContext = userCity && (messageContent.toLowerCase().includes('what about') || 
-                                      messageContent.toLowerCase().includes('how about') ||
-                                      messageContent.toLowerCase().includes('any') ||
-                                      messageContent.toLowerCase().includes('find') ||
-                                      messageContent.toLowerCase().includes('search'));
-        
-        const shouldSearchEvents = isEventQuery || hasContext;
-        
-        let eventsData = '';
-        
-        if (shouldSearchEvents) {
-          console.log(`🔍 Using AI-powered search for: "${messageContent}"`);
-          
+        // Handle DM follow-up if needed
+        if (response.shouldSendDM && response.dmContent) {
           try {
-            // Use the new AI-powered search
-            const userCity = userCities.get(message.senderInboxId);
-            const searchResult = await ticketmasterService.aiSearch(messageContent, userCity);
-            
-            if (searchResult.events.length > 0) {
-              eventsData = `\n\n${searchResult.explanation}\n\n${ticketmasterService.formatEventsList(searchResult.events)}`;
-            } else {
-              eventsData = `\n\n${searchResult.explanation}`;
-            }
-          } catch (error) {
-            console.error('Error in AI-powered event search:', error);
-            eventsData = `\n\nI'm having trouble searching for events right now. Please try again or be more specific about what you're looking for!`;
-          }
-        }
-        
-        const systemPrompt = `You are a helpful event finder. Use ONLY the real event data below. Show ALL events provided - don't filter them out. Keep responses VERY short - just Artist, Date, Venue. No ticket links, no extra text, no formatting.
-
-${eventsData}
-
-User: "${messageContent}"`;
-
-        const completion = await openai.chat.completions.create({
-          model: "gpt-4o-mini",
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: messageContent }
-          ],
-          max_tokens: 100,
-          temperature: 0.7,
-        });
-
-        const response = completion.choices[0]?.message?.content || "I'm here to help!";
-        console.log(`💬 Sending response: ${response}`);
-        await conversation.send(response);
-
-        // If this was an "I'm in" message in a group, also send a DM
-        if (isGroup && WellnessRouter.isImInMessage(messageContent)) {
-          try {
-            // Get the sender's address for DM
             const inboxState = await client.preferences.inboxStateFromInboxIds([
               message.senderInboxId,
             ]);
             const senderAddress = inboxState[0]?.identifiers[0]?.identifier;
             
             if (senderAddress) {
-              // Create or get DM conversation using the correct method
               const dmConversation = await client.conversations.newDm(senderAddress);
-              await dmConversation.send(`Hi! Here are the details you requested:\n\n${getCombinedResponse()}`);
-              console.log("📱 Sent follow-up DM with details");
+              await dmConversation.send(response.dmContent);
+              console.log("📱 Sent follow-up DM");
             }
           } catch (error) {
             console.log("⚠️ Could not send DM follow-up:", error);
           }
         }
+
+
 
       } catch (error) {
         console.error("❌ Error processing message:", error);

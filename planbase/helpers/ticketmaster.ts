@@ -160,6 +160,7 @@ export class TicketmasterService {
 IMPORTANT: If an artist name is mentioned, extract it exactly as written (e.g., "Ludacris", "Drake", "Taylor Swift").
 IMPORTANT: Do NOT include fields with "undefined" or "null" values.
 IMPORTANT: Only include dateRange if specific time periods are mentioned.
+IMPORTANT: If no city is mentioned and no userCity is provided, do NOT include a city field.
 
 Query: "${query}"
 
