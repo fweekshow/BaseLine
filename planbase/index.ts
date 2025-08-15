@@ -38,6 +38,8 @@ const ticketmasterService = new TicketmasterService(TICKETMASTER_API_KEY, openai
 const userCities = new Map<string, string>();
 const userAddresses = new Map<string, string>();
 const pendingAddressRequests = new Set<string>();
+const pendingCityRequests = new Set<string>();
+const pendingRsvpRequests = new Map<string, boolean>();
 
 /**
  * Main function to run the Wellness Connections agent
@@ -157,6 +159,30 @@ async function main() {
         // Get user's city for context
         const userCity = userCities.get(message.senderInboxId) || 'your area';
 
+        // Proactive greeting handling
+        const simpleGreetings = ['hey', 'hi', 'hello', 'sup', 'whats up', 'yo'];
+        const lowerMsg = messageContent.trim().toLowerCase();
+        if (simpleGreetings.some(g => lowerMsg === g || lowerMsg.startsWith(g + ' '))) {
+          if (!userCities.get(message.senderInboxId)) {
+            pendingCityRequests.add(message.senderInboxId);
+            await conversation.send("Hi! I can help you find events. Which city are you in?");
+          } else {
+            await conversation.send(`Hi! I can help you find events in ${userCities.get(message.senderInboxId)}. What artists or types of events are you into?`);
+          }
+          continue;
+        }
+
+        // Capture city if we're awaiting it
+        if (pendingCityRequests.has(message.senderInboxId)) {
+          const potentialCity = messageContent.trim();
+          if (potentialCity.length >= 2) {
+            userCities.set(message.senderInboxId, potentialCity);
+            pendingCityRequests.delete(message.senderInboxId);
+            await conversation.send(`Great, I'll look for events in ${potentialCity}. What artists or types of events are you interested in?`);
+            continue;
+          }
+        }
+
         // Check for hardcoded responses first
         const commands = WellnessRouter.parseMessage(messageContent);
         
@@ -181,7 +207,47 @@ async function main() {
           continue;
         }
         
-        // Use OpenAI for natural responses
+        // Handle RSVP flow
+        if (messageContent.toLowerCase().startsWith('/rsvp')) {
+          const artist = messageContent.substring(6).trim();
+          if (!artist) {
+            pendingRsvpRequests.set(message.senderInboxId, true);
+            await conversation.send("Which artist would you like to RSVP to? Please reply with the artist name.");
+            continue;
+          }
+          try {
+            const searchResult = await ticketmasterService.aiSearch(artist, userCities.get(message.senderInboxId));
+            if (searchResult.events.length > 0) {
+              const list = ticketmasterService.formatEventsList(searchResult.events);
+              await conversation.send(`Found events for ${artist}:\n\n${list}\n\nReply '/rsvp' followed by the artist again to confirm, or ask for another artist.`);
+            } else {
+              await conversation.send(`No upcoming events found for ${artist}. Try another artist or a different city.`);
+            }
+          } catch (e) {
+            await conversation.send(`Sorry, I couldn't look up ${artist} right now. Please try again in a moment.`);
+          }
+          continue;
+        }
+
+        // Handle pending RSVP artist reply
+        if (pendingRsvpRequests.get(message.senderInboxId)) {
+          const artist = messageContent.trim();
+          pendingRsvpRequests.delete(message.senderInboxId);
+          try {
+            const searchResult = await ticketmasterService.aiSearch(artist, userCities.get(message.senderInboxId));
+            if (searchResult.events.length > 0) {
+              const list = ticketmasterService.formatEventsList(searchResult.events);
+              await conversation.send(`Found events for ${artist}:\n\n${list}\n\nReply '/rsvp ${artist}' to confirm, or ask for another artist.`);
+            } else {
+              await conversation.send(`No upcoming events found for ${artist}. Try another artist or a different city.`);
+            }
+          } catch (e) {
+            await conversation.send(`Sorry, I couldn't look up ${artist} right now. Please try again in a moment.`);
+          }
+          continue;
+        }
+
+        // Use OpenAI for natural responses (only if we're actually searching for events)
         console.log("🤖 Using OpenAI for response...");
         
           // Use AI to determine if this is an event query (more intelligent than keyword matching)
@@ -242,7 +308,15 @@ User message: "${messageContent}"`;
               eventsData = `\n\nI'm having trouble searching for events right now. Please try again or be more specific about what you're looking for!`;
             }
           }
-          
+
+          // If this isn't an events query, guide the user instead of fabricating concerts
+          if (!shouldSearchEvents) {
+            const cityHint = userCities.get(message.senderInboxId) ? ` in ${userCities.get(message.senderInboxId)}` : '';
+            const guidance = `Hi! I can help you find events${cityHint}. Try messages like:\n- events in LA\n- rock shows this weekend\n- drake concerts\nOr use /rsvp [artist].`;
+            await conversation.send(guidance);
+            continue;
+          }
+
           const systemPrompt = `You are a helpful event finder. Use ONLY the real event data below. Show ALL events provided - don't filter them out. Keep responses VERY short - just Artist, Date, Venue. No ticket links, no extra text, no formatting.
 
 ${eventsData}
@@ -252,19 +326,19 @@ User: "${messageContent}"`;
           console.log(`🤖 System prompt length: ${systemPrompt.length} characters`);
           console.log(`🤖 Events data length: ${eventsData.length} characters`);
 
-        const completion = await openai.chat.completions.create({
-          model: "gpt-4o-mini",
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: messageContent }
-          ],
-          max_tokens: 100,
-          temperature: 0.7,
-        });
+          const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: messageContent }
+            ],
+            max_tokens: 100,
+            temperature: 0.7,
+          });
 
-        const response = completion.choices[0]?.message?.content || "I'm here to help!";
-        console.log(`💬 Sending response: ${response}`);
-        await conversation.send(response);
+          const response = completion.choices[0]?.message?.content || "I'm here to help!";
+          console.log(`💬 Sending response: ${response}`);
+          await conversation.send(response);
 
         // If this was an "I'm in" message in a group, also send a DM
         if (isGroup && WellnessRouter.isImInMessage(messageContent)) {

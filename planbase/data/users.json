@@ -1,0 +1,46 @@
+{
+  "790f47f112c575ab4950e1fe610ff3ba884c70a14aebaa50517bb80b264d065b": {
+    "inboxId": "790f47f112c575ab4950e1fe610ff3ba884c70a14aebaa50517bb80b264d065b",
+    "preferences": {
+      "eventTypes": [],
+      "notificationSettings": {
+        "eventReminders": true,
+        "newEvents": true,
+        "rsvpUpdates": true,
+        "directMessages": true
+      },
+      "privacySettings": {
+        "shareLocation": false,
+        "sharePreferences": false,
+        "allowTracking": true
+      }
+    },
+    "metadata": {
+      "createdAt": "2025-08-15T00:34:39.412Z",
+      "lastActive": "2025-08-15T00:44:55.104Z",
+      "messageCount": 7
+    }
+  },
+  "132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424": {
+    "inboxId": "132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424",
+    "preferences": {
+      "eventTypes": [],
+      "notificationSettings": {
+        "eventReminders": true,
+        "newEvents": true,
+        "rsvpUpdates": true,
+        "directMessages": true
+      },
+      "privacySettings": {
+        "shareLocation": false,
+        "sharePreferences": false,
+        "allowTracking": true
+      }
+    },
+    "metadata": {
+      "createdAt": "2025-08-15T00:45:03.190Z",
+      "lastActive": "2025-08-15T00:49:40.224Z",
+      "messageCount": 6
+    }
+  }
+}

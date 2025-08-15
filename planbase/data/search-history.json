@@ -1,0 +1,607 @@
+{
+  "132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424": [
+    {
+      "id": "search_1755218981418",
+      "userId": "132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424",
+      "query": "Events in LA",
+      "parsedParams": {
+        "city": "Los Angeles"
+      },
+      "results": [
+        {
+          "id": "vvG10Zbimlxef_",
+          "name": "Ally Salort",
+          "date": "2025-08-15T01:30:00.000Z",
+          "venue": {
+            "name": "The Moroccan Lounge",
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/ally-salort-los-angeles-california-08-14-2025/event/090062CBAB882519",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:49:41.410Z",
+            "updatedAt": "2025-08-15T00:49:41.410Z",
+            "searchQueries": [],
+            "externalId": "vvG10Zbimlxef_"
+          }
+        },
+        {
+          "id": "1718vxG61H878Dr",
+          "name": "Shattered Realm W/ Bayway, Pull Your Card, Load Tha Nine, Bloodshed, &",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "The Midnight Hour",
+            "city": "San Fernando",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketweb.com/event/shattered-realm-w-bayway-pull-the-midnight-hour-tickets/14478173?REFERRAL_ID=tmfeed",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:49:41.410Z",
+            "updatedAt": "2025-08-15T00:49:41.410Z",
+            "searchQueries": [],
+            "externalId": "1718vxG61H878Dr"
+          }
+        },
+        {
+          "id": "1718vxG62zDxspm",
+          "name": "Copper Blues Oxnard Banda & Grupo Night",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Copper Blues Oxnard Resturant",
+            "city": "Oxnard",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketweb.com/event/copper-blues-oxnard-banda-copper-blues-oxnard-restaurant-tickets/13923084?REFERRAL_ID=tmfeed",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:49:41.410Z",
+            "updatedAt": "2025-08-15T00:49:41.410Z",
+            "searchQueries": [],
+            "externalId": "1718vxG62zDxspm"
+          }
+        },
+        {
+          "id": "Z7r9jZ1A7bexF",
+          "name": "Alexandra Savior",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Troubadour",
+            "city": "West Hollywood",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7bexF",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:49:41.410Z",
+            "updatedAt": "2025-08-15T00:49:41.410Z",
+            "searchQueries": [],
+            "externalId": "Z7r9jZ1A7bexF"
+          }
+        },
+        {
+          "id": "vv170ZbJGkVdlVe7",
+          "name": "Pigs Pigs Pigs Pigs Pigs Pigs Pigs",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Constellation Room",
+            "city": "Santa Ana",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/pigs-pigs-pigs-pigs-pigs-pigs-santa-ana-california-08-14-2025/event/0900626D03AF4084",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:49:41.410Z",
+            "updatedAt": "2025-08-15T00:49:41.410Z",
+            "searchQueries": [],
+            "externalId": "vv170ZbJGkVdlVe7"
+          }
+        },
+        {
+          "id": "vv1ke8vxqbGACysPR",
+          "name": "Xdinary Heroes <Beautiful Mind> World Tour in LOS ANGELES",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Hollywood Palladium",
+            "city": "Hollywood",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/xdinary-heroes-beautiful-mind-world-tour-hollywood-california-08-14-2025/event/090062758EE7196F",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:49:41.410Z",
+            "updatedAt": "2025-08-15T00:49:41.410Z",
+            "searchQueries": [],
+            "externalId": "vv1ke8vxqbGACysPR"
+          }
+        },
+        {
+          "id": "vvG1iZb_278syK",
+          "name": "Rio Da Yung Og @ The Garden Room",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Riverside Municipal Auditorium",
+            "city": "Riverside",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/rio-da-yung-og-the-garden-riverside-california-08-14-2025/event/0B006193C4431E53",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:49:41.410Z",
+            "updatedAt": "2025-08-15T00:49:41.410Z",
+            "searchQueries": [],
+            "externalId": "vvG1iZb_278syK"
+          }
+        },
+        {
+          "id": "LvZ18Q6ADlduOgYZlrE-i",
+          "name": "Global Spin Live: BOYNEXTDOOR",
+          "date": "2025-08-15T02:30:00.000Z",
+          "venue": {
+            "name": "The GRAMMY Museum",
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.universe.com/events/global-spin-live-boynextdoor-tickets-Y68M30?ref=ticketmaster",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:49:41.410Z",
+            "updatedAt": "2025-08-15T00:49:41.410Z",
+            "searchQueries": [],
+            "externalId": "LvZ18Q6ADlduOgYZlrE-i"
+          }
+        },
+        {
+          "id": "Z7r9jZ1A7ppqa",
+          "name": "Carly Pearce",
+          "date": "2025-08-15T02:30:00.000Z",
+          "venue": {
+            "name": "Pacific Amphitheatre",
+            "city": "Costa Mesa",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7ppqa",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:49:41.410Z",
+            "updatedAt": "2025-08-15T00:49:41.410Z",
+            "searchQueries": [],
+            "externalId": "Z7r9jZ1A7ppqa"
+          }
+        },
+        {
+          "id": "Z7r9jZ1A7f0FZ",
+          "name": "Los Angeles Philharmonic w/ Simon Bolivar Symphony Orchestra of Venezuela",
+          "date": "2025-08-15T03:00:00.000Z",
+          "venue": {
+            "name": "Hollywood Bowl",
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7f0FZ",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:49:41.410Z",
+            "updatedAt": "2025-08-15T00:49:41.410Z",
+            "searchQueries": [],
+            "externalId": "Z7r9jZ1A7f0FZ"
+          }
+        }
+      ],
+      "createdAt": "2025-08-15T00:49:41.418Z"
+    },
+    {
+      "id": "search_1755218888346",
+      "userId": "132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424",
+      "query": "Events in SF",
+      "parsedParams": {
+        "city": "Los Angeles"
+      },
+      "results": [
+        {
+          "id": "vvG10Zbimlxef_",
+          "name": "Ally Salort",
+          "date": "2025-08-15T01:30:00.000Z",
+          "venue": {
+            "name": "The Moroccan Lounge",
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/ally-salort-los-angeles-california-08-14-2025/event/090062CBAB882519",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:48:08.338Z",
+            "updatedAt": "2025-08-15T00:48:08.338Z",
+            "searchQueries": [],
+            "externalId": "vvG10Zbimlxef_"
+          }
+        },
+        {
+          "id": "1718vxG61H878Dr",
+          "name": "Shattered Realm W/ Bayway, Pull Your Card, Load Tha Nine, Bloodshed, &",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "The Midnight Hour",
+            "city": "San Fernando",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketweb.com/event/shattered-realm-w-bayway-pull-the-midnight-hour-tickets/14478173?REFERRAL_ID=tmfeed",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:48:08.338Z",
+            "updatedAt": "2025-08-15T00:48:08.338Z",
+            "searchQueries": [],
+            "externalId": "1718vxG61H878Dr"
+          }
+        },
+        {
+          "id": "1718vxG62zDxspm",
+          "name": "Copper Blues Oxnard Banda & Grupo Night",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Copper Blues Oxnard Resturant",
+            "city": "Oxnard",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketweb.com/event/copper-blues-oxnard-banda-copper-blues-oxnard-restaurant-tickets/13923084?REFERRAL_ID=tmfeed",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:48:08.338Z",
+            "updatedAt": "2025-08-15T00:48:08.338Z",
+            "searchQueries": [],
+            "externalId": "1718vxG62zDxspm"
+          }
+        },
+        {
+          "id": "Z7r9jZ1A7bexF",
+          "name": "Alexandra Savior",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Troubadour",
+            "city": "West Hollywood",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7bexF",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:48:08.338Z",
+            "updatedAt": "2025-08-15T00:48:08.338Z",
+            "searchQueries": [],
+            "externalId": "Z7r9jZ1A7bexF"
+          }
+        },
+        {
+          "id": "vv170ZbJGkVdlVe7",
+          "name": "Pigs Pigs Pigs Pigs Pigs Pigs Pigs",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Constellation Room",
+            "city": "Santa Ana",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/pigs-pigs-pigs-pigs-pigs-pigs-santa-ana-california-08-14-2025/event/0900626D03AF4084",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:48:08.338Z",
+            "updatedAt": "2025-08-15T00:48:08.338Z",
+            "searchQueries": [],
+            "externalId": "vv170ZbJGkVdlVe7"
+          }
+        },
+        {
+          "id": "vv1ke8vxqbGACysPR",
+          "name": "Xdinary Heroes <Beautiful Mind> World Tour in LOS ANGELES",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Hollywood Palladium",
+            "city": "Hollywood",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/xdinary-heroes-beautiful-mind-world-tour-hollywood-california-08-14-2025/event/090062758EE7196F",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:48:08.338Z",
+            "updatedAt": "2025-08-15T00:48:08.338Z",
+            "searchQueries": [],
+            "externalId": "vv1ke8vxqbGACysPR"
+          }
+        },
+        {
+          "id": "vvG1iZb_278syK",
+          "name": "Rio Da Yung Og @ The Garden Room",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Riverside Municipal Auditorium",
+            "city": "Riverside",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/rio-da-yung-og-the-garden-riverside-california-08-14-2025/event/0B006193C4431E53",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:48:08.338Z",
+            "updatedAt": "2025-08-15T00:48:08.338Z",
+            "searchQueries": [],
+            "externalId": "vvG1iZb_278syK"
+          }
+        },
+        {
+          "id": "LvZ18Q6ADlduOgYZlrE-i",
+          "name": "Global Spin Live: BOYNEXTDOOR",
+          "date": "2025-08-15T02:30:00.000Z",
+          "venue": {
+            "name": "The GRAMMY Museum",
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.universe.com/events/global-spin-live-boynextdoor-tickets-Y68M30?ref=ticketmaster",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:48:08.338Z",
+            "updatedAt": "2025-08-15T00:48:08.338Z",
+            "searchQueries": [],
+            "externalId": "LvZ18Q6ADlduOgYZlrE-i"
+          }
+        },
+        {
+          "id": "Z7r9jZ1A7ppqa",
+          "name": "Carly Pearce",
+          "date": "2025-08-15T02:30:00.000Z",
+          "venue": {
+            "name": "Pacific Amphitheatre",
+            "city": "Costa Mesa",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7ppqa",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:48:08.338Z",
+            "updatedAt": "2025-08-15T00:48:08.338Z",
+            "searchQueries": [],
+            "externalId": "Z7r9jZ1A7ppqa"
+          }
+        },
+        {
+          "id": "Z7r9jZ1A7f0FZ",
+          "name": "Los Angeles Philharmonic w/ Simon Bolivar Symphony Orchestra of Venezuela",
+          "date": "2025-08-15T03:00:00.000Z",
+          "venue": {
+            "name": "Hollywood Bowl",
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7f0FZ",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:48:08.338Z",
+            "updatedAt": "2025-08-15T00:48:08.338Z",
+            "searchQueries": [],
+            "externalId": "Z7r9jZ1A7f0FZ"
+          }
+        }
+      ],
+      "createdAt": "2025-08-15T00:48:08.346Z"
+    },
+    {
+      "id": "search_1755218859316",
+      "userId": "132ddfd29e29096151775be0f3a9f996e059c10dd952b16d3749e9320f5ba424",
+      "query": "Shows in SF",
+      "parsedParams": {
+        "city": "Los Angeles"
+      },
+      "results": [
+        {
+          "id": "vvG10Zbimlxef_",
+          "name": "Ally Salort",
+          "date": "2025-08-15T01:30:00.000Z",
+          "venue": {
+            "name": "The Moroccan Lounge",
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/ally-salort-los-angeles-california-08-14-2025/event/090062CBAB882519",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:47:39.311Z",
+            "updatedAt": "2025-08-15T00:47:39.311Z",
+            "searchQueries": [],
+            "externalId": "vvG10Zbimlxef_"
+          }
+        },
+        {
+          "id": "1718vxG61H878Dr",
+          "name": "Shattered Realm W/ Bayway, Pull Your Card, Load Tha Nine, Bloodshed, &",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "The Midnight Hour",
+            "city": "San Fernando",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketweb.com/event/shattered-realm-w-bayway-pull-the-midnight-hour-tickets/14478173?REFERRAL_ID=tmfeed",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:47:39.311Z",
+            "updatedAt": "2025-08-15T00:47:39.311Z",
+            "searchQueries": [],
+            "externalId": "1718vxG61H878Dr"
+          }
+        },
+        {
+          "id": "1718vxG62zDxspm",
+          "name": "Copper Blues Oxnard Banda & Grupo Night",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Copper Blues Oxnard Resturant",
+            "city": "Oxnard",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketweb.com/event/copper-blues-oxnard-banda-copper-blues-oxnard-restaurant-tickets/13923084?REFERRAL_ID=tmfeed",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:47:39.311Z",
+            "updatedAt": "2025-08-15T00:47:39.311Z",
+            "searchQueries": [],
+            "externalId": "1718vxG62zDxspm"
+          }
+        },
+        {
+          "id": "Z7r9jZ1A7bexF",
+          "name": "Alexandra Savior",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Troubadour",
+            "city": "West Hollywood",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7bexF",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:47:39.311Z",
+            "updatedAt": "2025-08-15T00:47:39.311Z",
+            "searchQueries": [],
+            "externalId": "Z7r9jZ1A7bexF"
+          }
+        },
+        {
+          "id": "vv170ZbJGkVdlVe7",
+          "name": "Pigs Pigs Pigs Pigs Pigs Pigs Pigs",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Constellation Room",
+            "city": "Santa Ana",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/pigs-pigs-pigs-pigs-pigs-pigs-santa-ana-california-08-14-2025/event/0900626D03AF4084",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:47:39.311Z",
+            "updatedAt": "2025-08-15T00:47:39.311Z",
+            "searchQueries": [],
+            "externalId": "vv170ZbJGkVdlVe7"
+          }
+        },
+        {
+          "id": "vv1ke8vxqbGACysPR",
+          "name": "Xdinary Heroes <Beautiful Mind> World Tour in LOS ANGELES",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Hollywood Palladium",
+            "city": "Hollywood",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/xdinary-heroes-beautiful-mind-world-tour-hollywood-california-08-14-2025/event/090062758EE7196F",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:47:39.311Z",
+            "updatedAt": "2025-08-15T00:47:39.311Z",
+            "searchQueries": [],
+            "externalId": "vv1ke8vxqbGACysPR"
+          }
+        },
+        {
+          "id": "vvG1iZb_278syK",
+          "name": "Rio Da Yung Og @ The Garden Room",
+          "date": "2025-08-15T02:00:00.000Z",
+          "venue": {
+            "name": "Riverside Municipal Auditorium",
+            "city": "Riverside",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/rio-da-yung-og-the-garden-riverside-california-08-14-2025/event/0B006193C4431E53",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:47:39.311Z",
+            "updatedAt": "2025-08-15T00:47:39.311Z",
+            "searchQueries": [],
+            "externalId": "vvG1iZb_278syK"
+          }
+        },
+        {
+          "id": "LvZ18Q6ADlduOgYZlrE-i",
+          "name": "Global Spin Live: BOYNEXTDOOR",
+          "date": "2025-08-15T02:30:00.000Z",
+          "venue": {
+            "name": "The GRAMMY Museum",
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.universe.com/events/global-spin-live-boynextdoor-tickets-Y68M30?ref=ticketmaster",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:47:39.311Z",
+            "updatedAt": "2025-08-15T00:47:39.311Z",
+            "searchQueries": [],
+            "externalId": "LvZ18Q6ADlduOgYZlrE-i"
+          }
+        },
+        {
+          "id": "Z7r9jZ1A7ppqa",
+          "name": "Carly Pearce",
+          "date": "2025-08-15T02:30:00.000Z",
+          "venue": {
+            "name": "Pacific Amphitheatre",
+            "city": "Costa Mesa",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7ppqa",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:47:39.311Z",
+            "updatedAt": "2025-08-15T00:47:39.311Z",
+            "searchQueries": [],
+            "externalId": "Z7r9jZ1A7ppqa"
+          }
+        },
+        {
+          "id": "Z7r9jZ1A7f0FZ",
+          "name": "Los Angeles Philharmonic w/ Simon Bolivar Symphony Orchestra of Venezuela",
+          "date": "2025-08-15T03:00:00.000Z",
+          "venue": {
+            "name": "Hollywood Bowl",
+            "city": "Los Angeles",
+            "state": "California"
+          },
+          "ticketUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7f0FZ",
+          "status": "upcoming",
+          "source": "ticketmaster",
+          "metadata": {
+            "createdAt": "2025-08-15T00:47:39.311Z",
+            "updatedAt": "2025-08-15T00:47:39.311Z",
+            "searchQueries": [],
+            "externalId": "Z7r9jZ1A7f0FZ"
+          }
+        }
+      ],
+      "createdAt": "2025-08-15T00:47:39.316Z"
+    }
+  ]
+}

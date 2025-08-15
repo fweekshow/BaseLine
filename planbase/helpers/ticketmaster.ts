@@ -25,6 +25,24 @@ export class TicketmasterService {
   private apiKey: string;
   private baseUrl = 'https://app.ticketmaster.com/discovery/v2';
   private openai: any;
+  // Approximate lat/long centers for common cities to support 100mi radius searches
+  private cityLatLong: Record<string, { lat: number; lon: number }> = {
+    'los angeles': { lat: 34.0522, lon: -118.2437 },
+    'la': { lat: 34.0522, lon: -118.2437 },
+    'l.a.': { lat: 34.0522, lon: -118.2437 },
+    'costa mesa': { lat: 33.6411, lon: -117.9187 },
+    'san francisco': { lat: 37.7749, lon: -122.4194 },
+    'sf': { lat: 37.7749, lon: -122.4194 },
+    'new york': { lat: 40.7128, lon: -74.0060 },
+    'nyc': { lat: 40.7128, lon: -74.0060 },
+    'chicago': { lat: 41.8781, lon: -87.6298 },
+    'las vegas': { lat: 36.1699, lon: -115.1398 },
+    'vegas': { lat: 36.1699, lon: -115.1398 },
+    'miami': { lat: 25.7617, lon: -80.1918 },
+    'austin': { lat: 30.2672, lon: -97.7431 },
+    'boston': { lat: 42.3601, lon: -71.0589 },
+    'seattle': { lat: 47.6062, lon: -122.3321 }
+  };
 
   constructor(apiKey: string, openai?: any) {
     this.apiKey = apiKey;
@@ -48,6 +66,8 @@ export class TicketmasterService {
       console.log('🔍 AI Parsed Search Parameters:', searchParams);
       
       let events: TicketmasterEvent[] = [];
+      let usedRadius = false;
+      let radiusCenterCity: string | undefined;
       
       // If searching for a specific artist, use attraction search first
       if (searchParams.artist) {
@@ -92,13 +112,13 @@ export class TicketmasterService {
                           }
                         }
             
-            // Always use current dates - start from today, end 1 month from now
+            // For artist-specific searches, expand the window to 12 months out
             const now = new Date();
-            const oneMonthFromNow = new Date(now);
-            oneMonthFromNow.setMonth(now.getMonth() + 1);
+            const twelveMonthsFromNow = new Date(now);
+            twelveMonthsFromNow.setMonth(now.getMonth() + 12);
             
             const startDate = now.toISOString().split('.')[0] + 'Z';
-            const endDate = oneMonthFromNow.toISOString().split('.')[0] + 'Z';
+            const endDate = twelveMonthsFromNow.toISOString().split('.')[0] + 'Z';
             
             eventUrl += `&startDateTime=${encodeURIComponent(startDate)}`;
             eventUrl += `&endDateTime=${encodeURIComponent(endDate)}`;
@@ -110,6 +130,69 @@ export class TicketmasterService {
               const eventData = await eventResponse.json();
               events = eventData._embedded?.events || [];
               console.log(`🎵 Found ${events.length} events for ${searchParams.artist}`);
+            }
+
+            // If none found with DMA/city filter, try global attraction search (no location)
+            if (events.length === 0) {
+              let globalUrl = `${this.baseUrl}/events.json?apikey=${this.apiKey}&attractionId=${attractionId}&size=200`;
+              globalUrl += `&startDateTime=${encodeURIComponent(startDate)}`;
+              globalUrl += `&endDateTime=${encodeURIComponent(endDate)}`;
+              globalUrl += '&countryCode=US';
+              console.log('🌍 Global attraction URL:', globalUrl);
+              const globalResp = await fetch(globalUrl);
+              if (globalResp.ok) {
+                const globalData = await globalResp.json();
+                const globalEvents = globalData._embedded?.events || [];
+                console.log(`🌍 Global attraction search found: ${globalEvents.length} events`);
+                events = globalEvents;
+              }
+            }
+
+            // If none in selected city, try a 100-mile radius around the city center (if known)
+            if (events.length === 0 && searchParams.city) {
+              const center = this.cityLatLong[searchParams.city.toLowerCase()];
+              if (center) {
+                let radiusUrl = `${this.baseUrl}/events.json?apikey=${this.apiKey}&size=50&latlong=${center.lat},${center.lon}&radius=100&unit=miles`;
+                radiusUrl += `&keyword=${encodeURIComponent(searchParams.artist)}`;
+                radiusUrl += `&startDateTime=${encodeURIComponent(startDate)}`;
+                radiusUrl += `&endDateTime=${encodeURIComponent(endDate)}`;
+                radiusUrl += '&sort=date,asc&includeTBA=no&includeTBD=no';
+                console.log('📍 Artist radius URL:', radiusUrl);
+                const radiusResp = await fetch(radiusUrl);
+                if (radiusResp.ok) {
+                  const radiusData = await radiusResp.json();
+                  events = radiusData._embedded?.events || [];
+                  usedRadius = events.length > 0;
+                  radiusCenterCity = searchParams.city;
+                  console.log(`📍 Artist radius search found: ${events.length} events`);
+                }
+              }
+            }
+
+            // Final artist fallback: broad radius with no keyword, then filter locally by artist name/attractions
+            if (events.length === 0 && searchParams.city) {
+              const center = this.cityLatLong[searchParams.city.toLowerCase()];
+              if (center) {
+                let broadUrl = `${this.baseUrl}/events.json?apikey=${this.apiKey}&size=200&latlong=${center.lat},${center.lon}&radius=100&unit=miles`;
+                broadUrl += `&startDateTime=${encodeURIComponent(startDate)}`;
+                broadUrl += `&endDateTime=${encodeURIComponent(endDate)}`;
+                broadUrl += '&sort=date,asc&includeTBA=no&includeTBD=no';
+                console.log('🔎 Broad artist radius URL (no keyword):', broadUrl);
+                const broadResp = await fetch(broadUrl);
+                if (broadResp.ok) {
+                  const broadData = await broadResp.json();
+                  const allEvents: TicketmasterEvent[] = broadData._embedded?.events || [];
+                  const artistLower = String(searchParams.artist).toLowerCase();
+                  events = allEvents.filter((ev: any) => {
+                    if (ev.name && String(ev.name).toLowerCase().includes(artistLower)) return true;
+                    const atts: any[] = ev._embedded?.attractions || [];
+                    return atts.some(a => String(a.name).toLowerCase().includes(artistLower));
+                  });
+                  usedRadius = events.length > 0;
+                  radiusCenterCity = searchParams.city;
+                  console.log(`🔎 Broad radius artist filter found: ${events.length} events`);
+                }
+              }
             }
           }
         }
@@ -127,13 +210,48 @@ export class TicketmasterService {
           events = data._embedded?.events || [];
           console.log(`🔍 Keyword search found: ${events.length} events`);
         }
+
+        // If still nothing and a city is specified, try a generic 100-mile radius around that city
+        if (events.length === 0 && searchParams.city) {
+          const center = this.cityLatLong[searchParams.city.toLowerCase()];
+          if (center) {
+            const now = new Date();
+            const end = new Date(now);
+            if (searchParams.artist) {
+              end.setMonth(now.getMonth() + 12);
+            } else {
+              end.setMonth(now.getMonth() + 1);
+            }
+            const startDate = now.toISOString().split('.')[0] + 'Z';
+            const endDate = end.toISOString().split('.')[0] + 'Z';
+
+            let radiusUrl = `${this.baseUrl}/events.json?apikey=${this.apiKey}&size=50&latlong=${center.lat},${center.lon}&radius=100&unit=miles`;
+            if (searchParams.artist) {
+              radiusUrl += `&keyword=${encodeURIComponent(searchParams.artist)}`;
+            }
+            radiusUrl += `&startDateTime=${encodeURIComponent(startDate)}`;
+            radiusUrl += `&endDateTime=${encodeURIComponent(endDate)}`;
+            radiusUrl += '&sort=date,asc&includeTBA=no&includeTBD=no';
+            console.log('📍 Generic radius URL:', radiusUrl);
+            const radiusResp = await fetch(radiusUrl);
+            if (radiusResp.ok) {
+              const radiusData = await radiusResp.json();
+              events = radiusData._embedded?.events || [];
+              usedRadius = events.length > 0;
+              radiusCenterCity = searchParams.city;
+              console.log(`📍 Generic radius search found: ${events.length} events`);
+            }
+          }
+        }
       }
       
       return {
         events: events.slice(0, 5), // Limit to 5 events
         searchParams,
         explanation: events.length > 0 
-          ? `Found ${events.length} events matching your search. Here are some upcoming shows:`
+          ? usedRadius && radiusCenterCity
+            ? `Found ${events.length} events within ~100 miles of ${radiusCenterCity}. Here are some upcoming shows:`
+            : `Found ${events.length} events matching your search. Here are some upcoming shows:`
           : searchParams.artist 
             ? `I couldn't find any upcoming ${searchParams.artist} concerts in ${searchParams.city || 'the specified area'} right now. This could mean they don't have any scheduled shows in the next 6 months, or the shows might be in different cities.`
             : "I couldn't find any events matching your search criteria right now."
@@ -395,13 +513,17 @@ Return ONLY the JSON object, no markdown formatting, no code blocks, no addition
       console.log(`🔍 Searching for artist: ${searchParams.artist}`);
     }
     
-    // Always use current dates - start from today, end 1 month from now
+    // Always start from today. If searching by artist, use a longer window (6 months); otherwise 1 month
     const now = new Date();
-    const oneMonthFromNow = new Date(now);
-    oneMonthFromNow.setMonth(now.getMonth() + 1);
+    const end = new Date(now);
+    if (searchParams.artist) {
+      end.setMonth(now.getMonth() + 6);
+    } else {
+      end.setMonth(now.getMonth() + 1);
+    }
     
     const startDate = now.toISOString().split('.')[0] + 'Z';
-    const endDate = oneMonthFromNow.toISOString().split('.')[0] + 'Z';
+    const endDate = end.toISOString().split('.')[0] + 'Z';
     
     url += `&startDateTime=${encodeURIComponent(startDate)}`;
     url += `&endDateTime=${encodeURIComponent(endDate)}`;
@@ -421,28 +543,42 @@ Return ONLY the JSON object, no markdown formatting, no code blocks, no addition
       return "No events found.";
     }
 
-    // Filter out SOLD OUT events only - don't filter by date since API already filters
-    const availableEvents = events.filter(event => {
-      const isNotSoldOut = !event.name.toLowerCase().includes('sold out');
-      return isNotSoldOut;
+    // Show only future events (relative to now) and not sold out
+    const now = new Date();
+    const upcoming = events.filter(event => {
+      const eventDate = new Date(
+        `${event.dates.start.localDate} ${event.dates.start.localTime || '00:00:00'}`
+      );
+      const isFuture = eventDate.getTime() >= now.getTime();
+      const notSoldOut = !event.name.toLowerCase().includes('sold out');
+      return isFuture && notSoldOut;
     });
 
-    if (availableEvents.length === 0) {
+    if (upcoming.length === 0) {
       return "No upcoming events found.";
     }
 
-    return availableEvents.map((event, index) => {
+    // Sort by soonest first
+    upcoming.sort((a, b) => {
+      const aDate = new Date(`${a.dates.start.localDate} ${a.dates.start.localTime || '00:00:00'}`).getTime();
+      const bDate = new Date(`${b.dates.start.localDate} ${b.dates.start.localTime || '00:00:00'}`).getTime();
+      return aDate - bDate;
+    });
+
+    // Limit to 5 for brevity
+    const limited = upcoming.slice(0, 5);
+
+    return limited.map(event => {
       const venue = event._embedded?.venues?.[0];
       const venueName = venue ? venue.name : 'Venue TBA';
-      
-      // Use the exact date from the API without reformatting
-      const date = event.dates.start.localDate;
-      const formattedDate = new Date(date).toLocaleDateString('en-US', {
+      const dateObj = new Date(
+        `${event.dates.start.localDate} ${event.dates.start.localTime || '00:00:00'}`
+      );
+      const formattedDate = dateObj.toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric'
       });
-      
       return `${event.name}, ${formattedDate}, ${venueName}`;
     }).join('\n');
   }
